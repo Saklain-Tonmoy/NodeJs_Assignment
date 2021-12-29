@@ -4,20 +4,20 @@ var axios = require("axios").default;
 const fs = require('fs');
 
 /* GET home page. */
-router.get('/home/:id/:name', function(req, res, next) {
+router.get('/home/:id/:name', function (req, res, next) {
   console.log("hello world!");
   res.send(req.params);
-  
+
 });
 
 /* GET weather data from api */
-router.get('/weather/:country/:city', function(req, res, next) {
+router.get('/weather/:country/:city', function (req, res, next) {
   // Extracting URL parameters
   var country = req.params.country;
   var city = req.params.city;
 
   axios.get('http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912' + '&q=' + country + '&q=' + city + '&dt=2021-12-28' + '&aqi=no')
-    .then(function(response) {
+    .then(function (response) {
       var jsonObject = JSON.stringify(response.data);
       var object = JSON.parse(jsonObject);
 
@@ -54,37 +54,83 @@ router.get('/weather/:country/:city', function(req, res, next) {
                 console.log(writtenbytes +
                   ' characters added to file');
               }
-            })
+            });
+          fs.close(fd, function (err) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('File closed successfully');
+            }
+          });
         }
       });
-      
-      
-      var keysArray = Object.keys(object);
 
-      var location = new Object();
-      var forecast = new Object();
 
-      for(var i = 0; i < keysArray.length; i++) {
-        var key = keysArray[i];
-        if(key === 'location') {
-          location = object[key];
-        } else if(key === 'forecast') {
-          forecast = object[key].forecastday;
-          console.log(forecast.length);
-          console.log(forecast[0].date);
-          console.log(forecast[0].day.maxtemp_c);
-          console.log(object[key].forecastday.length);
-          console.log(object[key].forecastday[0].day);
-          console.log(object[key].forecastday[0].astro);
-          console.log(object[key].forecastday[0].hour.length);
-          console.log(object[key].forecastday[0].hour[0]);
+
+
+      fs.readFile('api-data.json', 'utf-8', function (err, data) {
+
+        // Check for errors
+        if (err) {
+          console.log(err);
+        } else {
+          // Converting to JSON
+          // console.log(data);
+
+          console.log(JSON.parse(data));
+
+          var test = JSON.parse(data);
+
+          var totalKeys = Object.keys(test);
+          var locationsFromFile = new Object();
+          var forecastFromFile = new Object();
+
+          console.log(totalKeys);
+
+          for(var i = 0; i < totalKeys.length; i++) {
+            var index = totalKeys[i];
+            if(index == 'location') {
+              locationsFromFile = test[index];
+            } else if(index == 'forecast') {
+              forecastFromFile = test[index].forecastday;
+            }
+            // console.log(test[index]);
+          }
+
+          console.log(locationsFromFile);
+          console.log(forecastFromFile[0].hour[0]);
         }
-        
-      }
+      });
 
-      res.render('index', {title: "Saklain"});
+
+
+
+      // var keysArray = Object.keys(object);
+
+      // var location = new Object();
+      // var forecast = new Object();
+
+      // for (var i = 0; i < keysArray.length; i++) {
+      //   var key = keysArray[i];
+      //   if (key === 'location') {
+      //     location = object[key];
+      //   } else if (key === 'forecast') {
+      //     forecast = object[key].forecastday;
+      //     console.log(forecast.length);
+      //     console.log(forecast[0].date);
+      //     console.log(forecast[0].day.maxtemp_c);
+      //     console.log(object[key].forecastday.length);
+      //     console.log(object[key].forecastday[0].day);
+      //     console.log(object[key].forecastday[0].astro);
+      //     console.log(object[key].forecastday[0].hour.length);
+      //     console.log(object[key].forecastday[0].hour[0]);
+      //   }
+
+      // }
+
+      res.render('index', { title: "Saklain" });
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.log(err);
     })
 })
