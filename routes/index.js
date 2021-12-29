@@ -11,7 +11,7 @@ router.get('/home/:id/:name', function (req, res, next) {
 });
 
 /* GET weather data from api */
-router.get('/weather/:country/:city', function (req, res, next) {
+router.get('/api/weather/:country/:city', function (req, res, next) {
   // Extracting URL parameters
   var country = req.params.country;
   var city = req.params.city;
