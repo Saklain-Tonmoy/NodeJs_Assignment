@@ -4,9 +4,8 @@ var axios = require("axios").default;
 const fs = require('fs');
 
 /* GET home page. */
-router.get('/home/:id/:name', function (req, res, next) {
-  console.log("hello world!");
-  res.send(req.params);
+router.get('/', function (req, res) {
+  res.render('index', {title: 'Saklain'});
 
 });
 
@@ -19,6 +18,7 @@ router.get('/all/weather/:country/:city', function (req, res, next) {
   axios.get('http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912' + '&q=' + country + '&q=' + city + '&dt=2021-12-28' + '&aqi=no')
     .then(function (response) {
       var jsonObject = JSON.stringify(response.data);
+      // console.log(typeof(jsonObject));
       var object = JSON.parse(jsonObject);
 
       // File path where data is to be written
