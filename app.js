@@ -24,8 +24,8 @@ const limitReached = (req, res) => {
 const apiRequestLimiter = rateLimit({
   windowMs: 10 * 1000, // 10 seconds
   max: 2, // limit each IP to 2 requests per windowMs
-  expireTimeMs: 10 * 1000,
-  resetTime: 10 * 1000,
+  // expireTimeMs: 10 * 1000,
+  resetTime: 10 * 1000, // resets after 10 seconds
   handler: limitReached,
 });
 

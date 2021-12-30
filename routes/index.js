@@ -10,10 +10,61 @@ router.get('/', function (req, res) {
 });
 
 /* GET weather data from api */
-router.get('/all/weather/:country/:city', function (req, res, next) {
+router.get('/all/:country/:city', function (req, res, next) {
   // Extracting URL parameters
   var country = req.params.country;
   var city = req.params.city;
+
+  fs.stat('api-data.json', function (err, stats) {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(stats);
+      // console.log(stats.size);
+      if(stats.size != 0) {
+        fs.readFile('api-data.json', { encoding: 'utf8', flag: 'r' }, function (err, data) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(data.length);
+            if (data.length != 0) {
+              var test = JSON.parse(data);
+
+              var totalKeys = Object.keys(test);
+              var locationsFromFile = new Object();
+              var forecastFromFile = new Object();
+
+              console.log(totalKeys);
+
+              for (var i = 0; i < totalKeys.length; i++) {
+                var index = totalKeys[i];
+                if (index == 'location') {
+                  locationsFromFile = test[index];
+                } else if (index == 'forecast') {
+                  forecastFromFile = test[index].forecastday;
+                }
+                // console.log(test[index]);
+              }
+
+              console.log(locationsFromFile);
+              console.log(forecastFromFile[0].hour[0]);
+
+              if(locationsFromFile.name == city && locationsFromFile.country == country) {
+                // send data from localStorage
+              } else {
+                // send axios request
+              }
+
+
+
+            } else {
+              console.log('File does not have any content.');
+            }
+          }
+        });
+      }
+    }
+  });
 
   axios.get('http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912' + '&q=' + country + '&q=' + city + '&dt=2021-12-28' + '&aqi=no')
     .then(function (response) {
@@ -68,106 +119,44 @@ router.get('/all/weather/:country/:city', function (req, res, next) {
 
 
 
-      fs.statSync("api-data.json", (error, stats) => {
-        if(error) {
-          console.log(error);
-        } else {
-          console.log(stats);
-        }
-      });
-
-
-
-      try {
-        if (fs.existsSync(path)) {
-          console.log('file exists');
-          // Calling the fs.readFileSync() method
-          // for reading file
-          // const data = fs.readFileSync(path, { encoding: 'utf8', flag: 'r' });
-
-          // Display data
-          // console.log(data);
-
-
-
-
-
-
-          fs.readFile('api-data.json', { encoding: 'utf8', flag: 'r' }, function (err, data) {
-              if(err) { 
-                console.log(err);
-              } else {
-                console.log(data.length);
-                if(data.length != 0) {
-                  var test = JSON.parse(data);
-
-                  var totalKeys = Object.keys(test);
-                  var locationsFromFile = new Object();
-                  var forecastFromFile = new Object();
-
-                  console.log(totalKeys);
-
-                  for (var i = 0; i < totalKeys.length; i++) {
-                    var index = totalKeys[i];
-                    if (index == 'location') {
-                      locationsFromFile = test[index];
-                    } else if (index == 'forecast') {
-                      forecastFromFile = test[index].forecastday;
-                    }
-                    // console.log(test[index]);
-                  }
-
-                  console.log(locationsFromFile);
-                  console.log(forecastFromFile[0].hour[0]);
-                } else {
-                  console.log('File does not have any content.');
-                }
-              }
-            });
-
-
-
-        }
-      } catch (err) {
-        console.log(err);
-      }
-
-
-
-
-      // fs.readFile('api-data.json', 'utf-8', function (err, data) {
-
-      //   // Check for errors
-      //   if (err) {
-      //     console.log(err);
+      // fs.statSync("api-data.json", (error, stats) => {
+      //   if(error) {
+      //     console.log(error);
       //   } else {
-      //     // Converting to JSON
-      //     // console.log(data);
-
-      //     // console.log(JSON.parse(data));
-
-      //     var test = JSON.parse(data);
-
-      //     var totalKeys = Object.keys(test);
-      //     var locationsFromFile = new Object();
-      //     var forecastFromFile = new Object();
-
-      //     console.log(totalKeys);
-
-      //     for(var i = 0; i < totalKeys.length; i++) {
-      //       var index = totalKeys[i];
-      //       if(index == 'location') {
-      //         locationsFromFile = test[index];
-      //       } else if(index == 'forecast') {
-      //         forecastFromFile = test[index].forecastday;
-      //       }
-      //       // console.log(test[index]);
-      //     }
-
-      //     console.log(locationsFromFile);
-      //     console.log(forecastFromFile[0].hour[0]);
+      //     console.log(stats);
       //   }
       // });
+
+
+
+      // try {
+      //   if (fs.existsSync(path)) {
+      //     console.log('file exists');
+      //     // Calling the fs.readFileSync() method
+      //     // for reading file
+      //     // const data = fs.readFileSync(path, { encoding: 'utf8', flag: 'r' });
+
+      //     // Display data
+      //     // console.log(data);
+
+
+
+
+
+
+          
+
+
+
+      //   }
+      // } catch (err) {
+      //   console.log(err);
+      // }
+
+
+
+
+      
 
 
 
