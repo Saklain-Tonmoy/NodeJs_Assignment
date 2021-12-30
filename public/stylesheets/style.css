@@ -6,3 +6,10 @@ body {
 a {
   color: #00B7FF;
 }
+
+.weather-card {
+  color: #fff; 
+  border: none; 
+  border-radius: 35px; 
+  background-color: rgb(3, 62, 97);
+}

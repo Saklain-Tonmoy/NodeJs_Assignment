@@ -273,4 +273,9 @@ router.get("/all/:country/:city", function (req, res) {
   //   })
 });
 
+
+router.get('/all/:country', function(req, res) {
+  res.render("index", {title: "Only Country Route Hits."});
+});
+
 module.exports = router;
