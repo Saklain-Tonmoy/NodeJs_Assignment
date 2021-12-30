@@ -5,10 +5,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
 
-var rateLimit = require('express-rate-limit');
+
+var Limiter = require('express-rate-limiter');
+var MemoryStore = require('express-rate-limiter/lib/memoryStore');
+var limiter = new Limiter({ db: new MemoryStore() });
 
 var app = express();
 
@@ -22,19 +25,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// var limiter = rateLimit({
-//   windowMs: 10 * 1000, // 10 seconds to Milliseconds
-//   max: 1,
-//   message: "You can only request after 10 seconds.",
-//   // standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-//   // legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-// });
 
-// app.use(limiter);
+app.get('/', function (req, res) {
+  res.render('index', {title: "Saklain"});
+});
 
-app.use('/', indexRouter);
-// app.use('/api/', apiLimiter, indexRouter);
-app.use('/users', usersRouter);
+app.get('/all/:country', limiter.middleware({ innerTimeLimit: 15000, innerLimit: 1, headers: false}), function (req, res) {
+  res.render('index', {title: "Hello World!!!"});
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

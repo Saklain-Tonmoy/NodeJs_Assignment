@@ -67,40 +67,66 @@ router.get('/all/weather/:country/:city', function (req, res, next) {
 
 
 
+
+      fs.statSync("api-data.json", (error, stats) => {
+        if(error) {
+          console.log(error);
+        } else {
+          console.log(stats);
+        }
+      });
+
+
+
       try {
         if (fs.existsSync(path)) {
           console.log('file exists');
-          fs.readFile('api-data.json', 'utf8', function(err, data) {
-            if(err) { 
-              console.log(err);
-            } else {
-              console.log(data.length);
-              if(data.length != 0) {
-                var test = JSON.parse(data);
+          // Calling the fs.readFileSync() method
+          // for reading file
+          // const data = fs.readFileSync(path, { encoding: 'utf8', flag: 'r' });
 
-                var totalKeys = Object.keys(test);
-                var locationsFromFile = new Object();
-                var forecastFromFile = new Object();
+          // Display data
+          // console.log(data);
 
-                console.log(totalKeys);
 
-                for (var i = 0; i < totalKeys.length; i++) {
-                  var index = totalKeys[i];
-                  if (index == 'location') {
-                    locationsFromFile = test[index];
-                  } else if (index == 'forecast') {
-                    forecastFromFile = test[index].forecastday;
-                  }
-                  // console.log(test[index]);
-                }
 
-                console.log(locationsFromFile);
-                console.log(forecastFromFile[0].hour[0]);
+
+
+
+          fs.readFile('api-data.json', { encoding: 'utf8', flag: 'r' }, function (err, data) {
+              if(err) { 
+                console.log(err);
               } else {
-                console.log('File does not have any content.');
+                console.log(data.length);
+                if(data.length != 0) {
+                  var test = JSON.parse(data);
+
+                  var totalKeys = Object.keys(test);
+                  var locationsFromFile = new Object();
+                  var forecastFromFile = new Object();
+
+                  console.log(totalKeys);
+
+                  for (var i = 0; i < totalKeys.length; i++) {
+                    var index = totalKeys[i];
+                    if (index == 'location') {
+                      locationsFromFile = test[index];
+                    } else if (index == 'forecast') {
+                      forecastFromFile = test[index].forecastday;
+                    }
+                    // console.log(test[index]);
+                  }
+
+                  console.log(locationsFromFile);
+                  console.log(forecastFromFile[0].hour[0]);
+                } else {
+                  console.log('File does not have any content.');
+                }
               }
-            }
-          })
+            });
+
+
+
         }
       } catch (err) {
         console.log(err);
