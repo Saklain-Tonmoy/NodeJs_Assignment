@@ -21,7 +21,7 @@ const limitReached = (req, res) => {
 
 // initializing express-rate-limit
 const apiRequestLimiter = rateLimit({
-  windowMs: 5 * 1000, // 10 seconds
+  windowMs: 10 * 1000, // 10 seconds
   max: 1, // limit each IP to 2 requests per windowMs
   // expireTimeMs: 10 * 1000,
   //resetTime: 10 * 1000, // resets after 10 seconds
@@ -29,11 +29,8 @@ const apiRequestLimiter = rateLimit({
 });
 
 // difining the route group
-//app.use(apiRequestLimiter);
-// indexRouter.use(apiRequestLimiter);
-// app.use('/', apiRequestLimiter, indexRouter);
-app.use('/all/:country/:city', apiRequestLimiter, indexRouter);
-// app.use('/users', usersRouter);
+app.use('/', apiRequestLimiter, indexRouter);
+app.use('/users', usersRouter);
 
 
 // view engine setup
