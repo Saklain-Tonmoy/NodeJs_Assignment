@@ -60,50 +60,15 @@ router.get('/all/:country/:city', function (req, res) {
                     var jsonObject = JSON.stringify(response.data);
                     // console.log(typeof(jsonObject));
                     var object = JSON.parse(jsonObject);
-            
-                    // File path where data is to be written
-                    // Here, we assume that the file to be in
-                    // the same location as the .js file
-                    var path = 'api-data.json';
-            
-                    // Declare a buffer and write the
-                    // data in the buffer
-                    let buffer = new Buffer.from(jsonObject);
-            
-                    // The fs.open() method takes a "flag"
-                    // as the second argument. If the file
-                    // does not exist, an empty file is
-                    // created. 'a' stands for append mode
-                    // which means that if the program is
-                    // run multiple time data will be
-                    // appended to the output file instead
-                    // of overwriting the existing data.
-                    fs.open(path, 'r+', function (err, fd) {
-            
-                      // If the output file does not exists
-                      // an error is thrown else data in the
-                      // buffer is written to the output file
+
+                    fs.writeFile('api-data.json', jsonObject, err => {
                       if (err) {
-                        console.log('Cant open file');
+                        console.error(err);
                       } else {
-                        fs.write(fd, buffer, 0, buffer.length,
-                          null, function (err, writtenbytes) {
-                            if (err) {
-                              console.log('Cant write to file');
-                            } else {
-                              console.log(writtenbytes +
-                                ' characters added to file');
-                            }
-                          });
-                        fs.close(fd, function (err) {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            console.log('File closed successfully');
-                          }
-                        });
+                        console.log("File written successfully.");
                       }
                     });
+
             
             
                     // try {
