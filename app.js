@@ -21,15 +21,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(
-//   rateLimit({
-//     windowMs : 10 * 1000, // 10 seconds to Milliseconds
-//     max: 1,
-//     message: "You can only request after 10 seconds.",
-//     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-//     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-//   })
-// );
 
 // var limiter = rateLimit({
 //   windowMs: 10 * 1000, // 10 seconds to Milliseconds
@@ -38,6 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   // standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 //   // legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 // });
+
+// app.use(limiter);
 
 app.use('/', indexRouter);
 // app.use('/api/', apiLimiter, indexRouter);

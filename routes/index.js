@@ -11,7 +11,7 @@ router.get('/home/:id/:name', function (req, res, next) {
 });
 
 /* GET weather data from api */
-router.get('/api/weather/:country/:city', function (req, res, next) {
+router.get('/all/weather/:country/:city', function (req, res, next) {
   // Extracting URL parameters
   var country = req.params.country;
   var city = req.params.city;
@@ -67,40 +67,81 @@ router.get('/api/weather/:country/:city', function (req, res, next) {
 
 
 
+      try {
+        if (fs.existsSync(path)) {
+          console.log('file exists');
+          fs.readFile('api-data.json', 'utf8', function(err, data) {
+            if(err) { 
+              console.log(err);
+            } else {
+              console.log(data.length);
+              if(data.length != 0) {
+                var test = JSON.parse(data);
 
-      fs.readFile('api-data.json', 'utf-8', function (err, data) {
+                var totalKeys = Object.keys(test);
+                var locationsFromFile = new Object();
+                var forecastFromFile = new Object();
 
-        // Check for errors
-        if (err) {
-          console.log(err);
-        } else {
-          // Converting to JSON
-          // console.log(data);
+                console.log(totalKeys);
 
-          console.log(JSON.parse(data));
+                for (var i = 0; i < totalKeys.length; i++) {
+                  var index = totalKeys[i];
+                  if (index == 'location') {
+                    locationsFromFile = test[index];
+                  } else if (index == 'forecast') {
+                    forecastFromFile = test[index].forecastday;
+                  }
+                  // console.log(test[index]);
+                }
 
-          var test = JSON.parse(data);
-
-          var totalKeys = Object.keys(test);
-          var locationsFromFile = new Object();
-          var forecastFromFile = new Object();
-
-          console.log(totalKeys);
-
-          for(var i = 0; i < totalKeys.length; i++) {
-            var index = totalKeys[i];
-            if(index == 'location') {
-              locationsFromFile = test[index];
-            } else if(index == 'forecast') {
-              forecastFromFile = test[index].forecastday;
+                console.log(locationsFromFile);
+                console.log(forecastFromFile[0].hour[0]);
+              } else {
+                console.log('File does not have any content.');
+              }
             }
-            // console.log(test[index]);
-          }
-
-          console.log(locationsFromFile);
-          console.log(forecastFromFile[0].hour[0]);
+          })
         }
-      });
+      } catch (err) {
+        console.log(err);
+      }
+
+
+
+
+      // fs.readFile('api-data.json', 'utf-8', function (err, data) {
+
+      //   // Check for errors
+      //   if (err) {
+      //     console.log(err);
+      //   } else {
+      //     // Converting to JSON
+      //     // console.log(data);
+
+      //     // console.log(JSON.parse(data));
+
+      //     var test = JSON.parse(data);
+
+      //     var totalKeys = Object.keys(test);
+      //     var locationsFromFile = new Object();
+      //     var forecastFromFile = new Object();
+
+      //     console.log(totalKeys);
+
+      //     for(var i = 0; i < totalKeys.length; i++) {
+      //       var index = totalKeys[i];
+      //       if(index == 'location') {
+      //         locationsFromFile = test[index];
+      //       } else if(index == 'forecast') {
+      //         forecastFromFile = test[index].forecastday;
+      //       }
+      //       // console.log(test[index]);
+      //     }
+
+      //     console.log(locationsFromFile);
+      //     console.log(forecastFromFile[0].hour[0]);
+      //   }
+      // });
 
 
 
