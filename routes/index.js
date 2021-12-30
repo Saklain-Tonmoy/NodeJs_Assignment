@@ -3,6 +3,7 @@ var router = express.Router();
 var axios = require("axios").default;
 const fs = require('fs');
 
+
 /* GET home page. */
 router.get('/', function (req, res) {
   res.render('index', {title: 'Saklain'});
@@ -10,7 +11,7 @@ router.get('/', function (req, res) {
 });
 
 /* GET weather data from api */
-router.get('/all/:country/:city', function (req, res, next) {
+router.get('/all/:country/:city', function (req, res) {
   // Extracting URL parameters
   var country = req.params.country;
   var city = req.params.city;

@@ -13,26 +13,28 @@ var app = express();
 
 // requiring express-rate-limit. this must be below the ### var app = express();
 const rateLimit = require('express-rate-limit');
-const router = require('./routes/users');
 
 // this function is handling what will happen when the limit is reached
 const limitReached = (req, res) => {
-  res.render('forbidden', { message: "Too many requests. You can request once in 10 seconds."});
+  res.render('forbidden', { message: "Too many requests. You can request once in 10 seconds." });
 };
 
 // initializing express-rate-limit
 const apiRequestLimiter = rateLimit({
-  windowMs: 10 * 1000, // 10 seconds
-  max: 2, // limit each IP to 2 requests per windowMs
+  windowMs: 5 * 1000, // 10 seconds
+  max: 1, // limit each IP to 2 requests per windowMs
   // expireTimeMs: 10 * 1000,
-  resetTime: 10 * 1000, // resets after 10 seconds
+  //resetTime: 10 * 1000, // resets after 10 seconds
   handler: limitReached,
 });
 
-// difining that, the app can use apiRequestLimiter
-app.use('/', apiRequestLimiter, indexRouter);
+// difining the route group
+//app.use(apiRequestLimiter);
+// indexRouter.use(apiRequestLimiter);
+// app.use('/', apiRequestLimiter, indexRouter);
+app.use('/all/:country/:city', apiRequestLimiter, indexRouter);
+// app.use('/users', usersRouter);
 
-// router.use(apiRequestLimiter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,12 +48,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
