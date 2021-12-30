@@ -63,7 +63,7 @@ router.get('/all/:country/:city', function (req, res) {
   console.log(locationsFromFile.country);
 
 
-  if (locationsFromFile.name === city && locationsFromFile.country === country) {
+  if ((locationsFromFile.name === city && locationsFromFile.country === country) {
     // send data from localStorage
     console.log("data served from localStorage");
     res.render("index", {title: "Data Served From LocalStorage."});
