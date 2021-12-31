@@ -5,6 +5,10 @@ const fs = require("fs");
 
 const path = 'api-data.json';
 
+router.get('/', function (req, res) {
+  res.render('index', {title: 'HOME Page'});
+})
+
 /* GET weather data from api */
 router.get("/all/:country/:city", function (req, res) {
   // Extracting URL parameters
