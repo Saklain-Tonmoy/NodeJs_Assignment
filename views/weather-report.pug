@@ -20,10 +20,10 @@ block content
         .carousel-item.active
           .container.d-flex.justify-content-around.align-items-center.mb-4.pb-2
             div
-              h2.display-2.text-white
-                strong.celcius #{forecastDay.avgtemp_c}&deg;C
-              h2.display-2.text-white
-                strong.fahrenheit #{forecastDay.avgtemp_f}&#x2109;
+              h2.display-2.text-white.celcius
+                strong #{forecastDay.avgtemp_c}&deg;C
+              h2.display-2.text-white.fahrenheit.d-none
+                strong #{forecastDay.avgtemp_f}&#x2109;
               p.text-white.mb-0 #{locationsFromFile.name}, #{locationsFromFile.country}
             div
               img(src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu3.webp' width='150px')
@@ -32,7 +32,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[0].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[0].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[0].temp_f}&#x2109;
               i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 00:00
@@ -40,7 +40,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[1].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[1].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[1].temp_f}&#x2109;
               i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 1:00
@@ -48,7 +48,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[2].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[2].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[2].temp_f}&#x2109;
               i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 2:00
@@ -56,7 +56,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[3].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[3].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[3].temp_f}&#x2109;
               i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 3:00
@@ -64,7 +64,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[4].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[4].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[4].temp_f}&#x2109;
               i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 4:00
@@ -72,7 +72,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[5].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[5].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[5].temp_f}&#x2109;
               i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 5:00
@@ -82,7 +82,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[6].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[6].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[6].temp_f}&#x2109;
               i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 6:00
@@ -90,7 +90,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[7].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[7].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[7].temp_f}&#x2109;
               i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 7:00
@@ -98,7 +98,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[8].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[8].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[8].temp_f}&#x2109;
               i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 8:00
@@ -106,7 +106,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[9].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[9].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[9].temp_f}&#x2109;
               i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 9:00
@@ -114,7 +114,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[10].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[10].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[10].temp_f}&#x2109;
               i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 10:00
@@ -122,7 +122,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[11].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[11].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[11].temp_f}&#x2109;
               i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 11:00
@@ -132,7 +132,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[12].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[12].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[12].temp_f}&#x2109;
               i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 12:00
@@ -140,7 +140,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[13].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[13].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[13].temp_f}&#x2109;
               i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 1:00
@@ -148,7 +148,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[14].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[14].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[14].temp_f}&#x2109;
               i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 2:00
@@ -156,7 +156,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[15].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[15].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[15].temp_f}&#x2109;
               i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 3:00
@@ -164,7 +164,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[16].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[16].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[16].temp_f}&#x2109;
               i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 4:00
@@ -172,7 +172,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[17].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[17].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[17].temp_f}&#x2109;
               i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 5:00
@@ -182,7 +182,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[18].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[18].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[18].temp_f}&#x2109;
               i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 6:00
@@ -190,7 +190,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[19].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[19].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[19].temp_f}&#x2109;
               i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 7:00
@@ -198,7 +198,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[20].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[20].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[20].temp_f}&#x2109;
               i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 8:00
@@ -206,7 +206,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[21].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[21].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[21].temp_f}&#x2109;
               i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 9:00
@@ -214,7 +214,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[22].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[22].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[22].temp_f}&#x2109;
               i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 10:00
@@ -222,7 +222,7 @@ block content
             .flex-column
               p.small.text-white
                 strong.celcius #{forecastHour[23].temp_c}&deg;C
-                strong.fahrenheit #{forecastHour[23].temp_f}&#x2109;
+                strong.fahrenheit.d-none #{forecastHour[23].temp_f}&#x2109;
               i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
               p.mb-0.text-white
                 strong 11:00
@@ -233,3 +233,15 @@ block content
       button.carousel-control-next(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide='next')
         span.carousel-control-next-icon(aria-hidden='true')
         span.visually-hidden Next
+  script. 
+    $(document).ready(function () {
+    $('[name="graduate"]').change(function () {
+    if ($('[name="graduate"]:checked').is(":checked")) {
+    $('.celcius').addClass('d-none');
+    $('.fahrenheit').removeClass('d-none');
+    } else {
+    $('.celcius').removeClass('d-none');
+    $('.fahrenheit').addClass('d-none');
+    }
+    });
+    });
