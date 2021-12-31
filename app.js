@@ -22,7 +22,7 @@ const limitReached = (req, res) => {
 // initializing express-rate-limit
 const apiRequestLimiter = rateLimit({
   windowMs: 10 * 1000, // 10 seconds
-  max: 1, // limit each IP to 1 requests per windowMs
+  max: 2, // limit each IP to 1 requests per windowMs
   handler: limitReached,
 });
 
