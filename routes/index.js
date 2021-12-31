@@ -15,11 +15,13 @@ router.get("/all/:country/:city", function (req, res) {
   var country = req.params.country.toLowerCase();
   var city = req.params.city.toLowerCase();
   // var isoDate = new Date().toISOString();
-  var date = new Date().toISOString().slice(0,10);
-  // console.log(date);
+  var todayInMilliseconds = new Date();
+  var today = todayInMilliseconds.toISOString().slice(0,10);
+  console.log(today);
 
-  // console.log(country);
-  // console.log(city);
+  oneDayInMilliseconds = 86400000; //number of milliseconds in a day
+  sixDaysAgo = new Date(todayInMilliseconds - (6*oneDayInMilliseconds)).toISOString().slice(0,10);
+  console.log(sixDaysAgo);
 
   var totalKeys = null;
   var locationsFromFile = new Object();
@@ -39,11 +41,7 @@ router.get("/all/:country/:city", function (req, res) {
               "api-data.json",
               { encoding: "utf8", flag: "r" },
               function (err, data) {
-                // if (err) {
-                //   console.log(err);
-                // }
-                //else {
-                // console.log(data.length);
+
                 var test = JSON.parse(data);
     
                 totalKeys = Object.keys(test);
@@ -93,6 +91,7 @@ router.get("/all/:country/:city", function (req, res) {
                   //   }
                   // }
                   res.render("weather-report", { locationsFromFile, forecastDay, forecastAstro, forecastHour });
+                  // res.render("loop", {locationsFromFile, forecastFromFile });
                 } else {
                   // send axios request
                   axios
@@ -103,13 +102,16 @@ router.get("/all/:country/:city", function (req, res) {
                         "&q=" +
                         city +
                         "&dt=" +
-                        date +
+                        sixDaysAgo +
+                        "&end_dt=" +
+                        today +
                         "&aqi=no"
                     )
                     .then(function (response) {
                       var jsonObject = JSON.stringify(response.data);
                       // console.log(typeof(jsonObject));
                       var object = JSON.parse(jsonObject);
+                      console.log("http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912" + "&q=" + country + "&q=" + city + "&dt=" + sixDaysAgo + "&end_dt=" + today + "&aqi=no");
     
                       fs.writeFile("api-data.json", jsonObject, (err) => {
                         if (err) {
