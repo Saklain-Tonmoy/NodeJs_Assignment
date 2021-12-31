@@ -1,124 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toggle Switch</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle Switch</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 </head>
 
 <style>
-    .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
 
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
 
-input:checked + .slider {
-  background-color: #2196F3;
-}
+  input:checked+.slider {
+    background-color: #2196F3;
+  }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
+  input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
 
-.slider.round:before {
-  border-radius: 50%;
-}
+  .slider.round:before {
+    border-radius: 50%;
+  }
 </style>
+
 <body>
-    
-    <div class="container my-5">
-        <div class="text-center">
-            <span> Normal</span>
-            <label class="switch">
-                <input type="checkbox" name="graduate">
-                <span class="slider round"></span>
-            </label>
-            <span class="text-primary"> Colored</span> </div>
-    
-            <div class="col-md-12 ug mt-5">
-    
-                <div class="card bg-light">
-                    <div class="card-body text-center">
-                        <p class="card-text">Some text inside the normal card</p>
-                    </div>
-                </div>
-    
-            </div>
-    
-            <div class="col-md-12 mt-5 phd" style="display: none">
-    
-                <div class="card bg-primary">
-                    <div class="card-body text-center">
-                        <p class="card-text">Some text inside the colored card</p>
-                    </div>
-                </div>
-    
-            </div>
+
+  <div class="container my-5">
+    <div class="text-center">
+      <span> Normal</span>
+      <label class="switch">
+        <input type="checkbox" name="graduate">
+        <span class="slider round"></span>
+      </label>
+      <span class="text-primary"> Colored</span>
+    </div>
+
+    <div class="col-md-12 ug mt-5">
+
+      <div class="card bg-light">
+        <div class="card-body text-center">
+          <p class="card-text">Some text inside the normal card</p>
         </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-12 mt-5 phd" style="display: none">
+
+      <div class="card bg-primary">
+        <div class="card-body text-center">
+          <p class="card-text">Some text inside the colored card</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-12 mt-5">
+      <div class="card bg-info">
+        <div class="card-body text-center">
+          <h5 class="test1">Initially this test is visible. On toggle it will be invisible.</h5>
+          <h5 class="test2 d-none">Initially this test is invisible. On toggle it will be visible.</h5>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 <script>
-    $(document).ready(function () {
-            $('[name="graduate"]').change(function () {
-                if ($('[name="graduate"]:checked').is(":checked")) {
-                    $('.ug').hide();
-                    $('.phd').show();
-                } else {
-                    $('.ug').show();
-                    $('.phd').hide();
-                }
-            });
-        });
+  $(document).ready(function () {
+    $('[name="graduate"]').change(function () {
+      if ($('[name="graduate"]:checked').is(":checked")) {
+        $('.ug').hide();
+        $('.phd').show();
+        $('.test1').addClass('d-none');
+        $('.test2').removeClass('d-none');
+      } else {
+        $('.ug').show();
+        $('.phd').hide();
+        $('.test1').removeClass('d-none');
+        $('.test2').addClass('d-none');
+      }
+    });
+  });
 </script>
+
 </html>
