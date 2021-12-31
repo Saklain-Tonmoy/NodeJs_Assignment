@@ -14,9 +14,12 @@ router.get("/all/:country/:city", function (req, res) {
   // Extracting URL parameters
   var country = req.params.country.toLowerCase();
   var city = req.params.city.toLowerCase();
+  // var isoDate = new Date().toISOString();
+  var date = new Date().toISOString().slice(0,10);
+  // console.log(date);
 
-  console.log(country);
-  console.log(city);
+  // console.log(country);
+  // console.log(city);
 
   var totalKeys = null;
   var locationsFromFile = new Object();
@@ -29,7 +32,7 @@ router.get("/all/:country/:city", function (req, res) {
         if (err) {
           console.log(err);
         } else {
-          console.log(stats);
+          // console.log(stats);
           // console.log(stats.size);
           if (stats.size != 0) {
             fs.readFile(
@@ -40,12 +43,12 @@ router.get("/all/:country/:city", function (req, res) {
                 //   console.log(err);
                 // }
                 //else {
-                console.log(data.length);
+                // console.log(data.length);
                 var test = JSON.parse(data);
     
                 totalKeys = Object.keys(test);
     
-                console.log(totalKeys);
+                // console.log(totalKeys);
     
                 for (var i = 0; i < totalKeys.length; i++) {
                   var index = totalKeys[i];
@@ -60,29 +63,36 @@ router.get("/all/:country/:city", function (req, res) {
                   locationsFromFile.country.toLowerCase() === country &&
                   locationsFromFile.name.toLowerCase() === city
                 ) {
+
+                  var forecastDay = forecastFromFile[0].day;
+                  var forecastAstro = forecastFromFile[0].astro;
+                  var forecastHour = forecastFromFile[0].hour;
+                  // console.log(forecastDay);
+                  // console.log(forecastAstro);
+                  // console.log(forecastHour);
                   // send data from localStorage
                   console.log("data served from localStorage");
                   // console.log(locationsFromFile);
                   // console.log(forecastFromFile);
-                  console.log(forecastFromFile.length);
-                  for(var i in forecastFromFile) {
-                    console.log("Max Temp in celcius = " + forecastFromFile[i].day.maxtemp_c);
-                    console.log("Max Temp in fahrenheit = " + forecastFromFile[i].day.maxtemp_f);
-                    console.log("Min Temp in celcius = " + forecastFromFile[i].day.mintemp_c);
-                    console.log("Min Temp in fahrenheit = " + forecastFromFile[i].day.mintemp_f);
-                    console.log("Avg Temp in celcius = " + forecastFromFile[i].day.avgtemp_c);
-                    console.log("Avg Temp in fahrenheit = " + forecastFromFile[i].day.avgtemp_f);
-                    console.log("Max Wind in mph = " + forecastFromFile[i].day.maxwind_mph);
-                    console.log("Max Wind in kph = " + forecastFromFile[i].day.maxwind_kph);
-                    console.log("Avg Humidity = " + forecastFromFile[i].day.avghumidity);
-                    console.log("Condition = " + forecastFromFile[i].day.condition.text);
-                    console.log("Sunrise time = " + forecastFromFile[i].astro.sunrise);
-                    console.log("Sunset time = " + forecastFromFile[i].astro.sunset);
-                    for(var j in forecastFromFile[i].hour) {
-                      console.log(forecastFromFile[i].hour[j]);
-                    }
-                  }
-                  res.render("index", { title: "Data Served From LocalStorage." });
+                  // console.log(forecastFromFile.length);
+                  // for(var i in forecastFromFile) {
+                  //   console.log("Max Temp in celcius = " + forecastFromFile[i].day.maxtemp_c);
+                  //   console.log("Max Temp in fahrenheit = " + forecastFromFile[i].day.maxtemp_f);
+                  //   console.log("Min Temp in celcius = " + forecastFromFile[i].day.mintemp_c);
+                  //   console.log("Min Temp in fahrenheit = " + forecastFromFile[i].day.mintemp_f);
+                  //   console.log("Avg Temp in celcius = " + forecastFromFile[i].day.avgtemp_c);
+                  //   console.log("Avg Temp in fahrenheit = " + forecastFromFile[i].day.avgtemp_f);
+                  //   console.log("Max Wind in mph = " + forecastFromFile[i].day.maxwind_mph);
+                  //   console.log("Max Wind in kph = " + forecastFromFile[i].day.maxwind_kph);
+                  //   console.log("Avg Humidity = " + forecastFromFile[i].day.avghumidity);
+                  //   console.log("Condition = " + forecastFromFile[i].day.condition.text);
+                  //   console.log("Sunrise time = " + forecastFromFile[i].astro.sunrise);
+                  //   console.log("Sunset time = " + forecastFromFile[i].astro.sunset);
+                  //   for(var j in forecastFromFile[i].hour) {
+                  //     console.log(forecastFromFile[i].hour[j]);
+                  //   }
+                  // }
+                  res.render("weather-report", { locationsFromFile, forecastDay, forecastAstro, forecastHour });
                 } else {
                   // send axios request
                   axios
@@ -92,7 +102,8 @@ router.get("/all/:country/:city", function (req, res) {
                         country +
                         "&q=" +
                         city +
-                        "&dt=2021-12-28" +
+                        "&dt=" +
+                        date +
                         "&aqi=no"
                     )
                     .then(function (response) {

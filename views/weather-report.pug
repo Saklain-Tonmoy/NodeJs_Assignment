@@ -1,0 +1,235 @@
+extends layout
+
+block content
+  .container.my-5
+    .text-center
+      span.fw-bold.me-2  Degree
+      label.switch.me
+        input(type='checkbox' name='graduate')
+        span.slider.round
+      span.fw-bold.ms-2  Fahrenheit
+  section.container.gradient-custom.mt-5.py-5
+    #carouselExampleIndicators.carousel.slide(data-bs-ride='carousel')
+      .carousel-indicators
+        button.active(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
+        button(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='1' aria-label='Slide 2')
+        button(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='2' aria-label='Slide 3')
+        button(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='3' aria-label='Slide 4')
+        button(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='4' aria-label='Slide 5')
+      .carousel-inner
+        .carousel-item.active
+          .container.d-flex.justify-content-around.align-items-center.mb-4.pb-2
+            div
+              h2.display-2.text-white
+                strong.celcius #{forecastDay.avgtemp_c}&deg;C
+              h2.display-2.text-white
+                strong.fahrenheit #{forecastDay.avgtemp_f}&#x2109;
+              p.text-white.mb-0 #{locationsFromFile.name}, #{locationsFromFile.country}
+            div
+              img(src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu3.webp' width='150px')
+        .carousel-item
+          .d-flex.justify-content-around.text-center.mb-4.pb-3.pt-2
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[0].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[0].temp_f}&#x2109;
+              i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 00:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[1].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[1].temp_f}&#x2109;
+              i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 1:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[2].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[2].temp_f}&#x2109;
+              i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 2:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[3].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[3].temp_f}&#x2109;
+              i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 3:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[4].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[4].temp_f}&#x2109;
+              i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 4:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[5].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[5].temp_f}&#x2109;
+              i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 5:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+        .carousel-item
+          .d-flex.justify-content-around.text-center.mb-4.pb-3.pt-2
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[6].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[6].temp_f}&#x2109;
+              i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 6:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[7].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[7].temp_f}&#x2109;
+              i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 7:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[8].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[8].temp_f}&#x2109;
+              i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 8:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[9].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[9].temp_f}&#x2109;
+              i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 9:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[10].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[10].temp_f}&#x2109;
+              i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 10:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[11].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[11].temp_f}&#x2109;
+              i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 11:00
+              p.mb-0.text-white(style='font-size: .65rem;') AM
+        .carousel-item
+          .d-flex.justify-content-around.text-center.mb-4.pb-3.pt-2
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[12].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[12].temp_f}&#x2109;
+              i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 12:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[13].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[13].temp_f}&#x2109;
+              i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 1:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[14].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[14].temp_f}&#x2109;
+              i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 2:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[15].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[15].temp_f}&#x2109;
+              i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 3:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[16].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[16].temp_f}&#x2109;
+              i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 4:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[17].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[17].temp_f}&#x2109;
+              i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 5:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+        .carousel-item
+          .d-flex.justify-content-around.text-center.mb-4.pb-3.pt-2
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[18].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[18].temp_f}&#x2109;
+              i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 6:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[19].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[19].temp_f}&#x2109;
+              i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 7:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[20].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[20].temp_f}&#x2109;
+              i.fas.fa-sun.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 8:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[21].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[21].temp_f}&#x2109;
+              i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 9:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[22].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[22].temp_f}&#x2109;
+              i.fas.fa-cloud.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 10:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+            .flex-column
+              p.small.text-white
+                strong.celcius #{forecastHour[23].temp_c}&deg;C
+                strong.fahrenheit #{forecastHour[23].temp_f}&#x2109;
+              i.fas.fa-cloud-showers-heavy.fa-2x.mb-3(style='color: #ddd;')
+              p.mb-0.text-white
+                strong 11:00
+              p.mb-0.text-white(style='font-size: .65rem;') PM
+      button.carousel-control-prev(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide='prev')
+        span.carousel-control-prev-icon(aria-hidden='true')
+        span.visually-hidden Previous
+      button.carousel-control-next(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide='next')
+        span.carousel-control-next-icon(aria-hidden='true')
+        span.visually-hidden Next
