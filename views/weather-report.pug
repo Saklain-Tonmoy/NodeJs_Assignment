@@ -25,6 +25,8 @@ block content
               h2.display-2.text-white.fahrenheit.d-none
                 strong #{forecastDay.avgtemp_f}&#x2109;
               p.text-white.mb-0 #{locationsFromFile.name}, #{locationsFromFile.country}
+              p.text-white.mb-0 #{today}
+              p.text-white.mb-0 #{forecastDay.condition.text}
             div
               img(src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu3.webp' width='150px')
         .carousel-item
