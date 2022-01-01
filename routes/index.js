@@ -56,15 +56,22 @@ router.get("/all/:country/:city", function (req, res) {
                     forecastFromFile = test[index].forecastday;
                   }
                 }
-    
-                if (
-                  locationsFromFile.country.toLowerCase() === country &&
-                  locationsFromFile.name.toLowerCase() === city
-                ) {
 
-                  var forecastDay = forecastFromFile[0].day;
-                  var forecastAstro = forecastFromFile[0].astro;
-                  var forecastHour = forecastFromFile[0].hour;
+                var lastIndex = forecastFromFile.length - 1;
+    
+                if (locationsFromFile.country.toLowerCase() === country && locationsFromFile.name.toLowerCase() === city && forecastFromFile[lastIndex].date === today) {
+
+                  var forecastOfToday = forecastFromFile[lastIndex];
+                  // console.log(forecastOfToday);
+
+                  console.log(forecastOfToday.day);
+                  console.log(forecastOfToday.astro);
+                  console.log(forecastOfToday.hour[0]);
+
+                  var forecastDay = forecastOfToday.day;
+                  var forecastAstro = forecastOfToday.astro;
+                  var forecastHour = forecastOfToday.hour;
+                  
                   // console.log(forecastDay);
                   // console.log(forecastAstro);
                   // console.log(forecastHour);
@@ -160,12 +167,15 @@ router.get("/all/:country/:city", function (req, res) {
             axios
               .get(
                 "http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912" +
-                "&q=" +
-                country +
-                "&q=" +
-                city +
-                "&dt=2021-12-28" +
-                "&aqi=no"
+                  "&q=" +
+                  country +
+                  "&q=" +
+                  city +
+                  "&dt=" +
+                  sixDaysAgo +
+                  "&end_dt=" +
+                  today +
+                  "&aqi=no"
               )
               .then(function (response) {
                 var jsonObject = JSON.stringify(response.data);
