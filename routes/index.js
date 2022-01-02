@@ -51,9 +51,12 @@ router.get("/all/:country/:city", function (req, res) {
   // var locationsFromFile = new Object();
   // var forecastFromFile = new Object();
 
+  console.log(fs.existsSync(path));
+
   try {
     if(fs.existsSync(path)) {
       const data = fs.readFileSync(path, {encoding: "utf8", flag: "r"});
+      console.log(data.length);
       // console.log(data);
       // console.log(data.length);
       if(data.length != 0) {
@@ -82,61 +85,40 @@ router.get("/all/:country/:city", function (req, res) {
             
             console.log("data served from localStorage");
 
-            let maxtempSum_c = mintempSum_c = maxtempSum_f = mintempSum_f = 0;
-            // let maxArrayCelcius = minArrayCelcius = maxArrayFahrenheit = minArrayFahrenheit = [];
+            var maxtempSum_c = mintempSum_c = maxtempSum_f = mintempSum_f = 0;
+            var maxArrayCelcius = []; 
+            var minArrayCelcius = []; 
+            var maxArrayFahrenheit = []; 
+            var minArrayFahrenheit = [];
 
-            for(var i in forecastFromFile) {
+            for(var i = 0; i < forecastFromFile.length; i++) {
               maxtempSum_c += forecastFromFile[i].day.maxtemp_c;
               console.log(forecastFromFile[i].day.maxtemp_c);
               mintempSum_c += forecastFromFile[i].day.mintemp_c;
               maxtempSum_f += forecastFromFile[i].day.maxtemp_f;
               mintempSum_f += forecastFromFile[i].day.mintemp_f;
-              // maxArrayCelcius.push(parseFloat(forecastFromFile[i].day.maxtemp_c));
-              // minArrayCelcius.push(parseFloat(forecastFromFile[i].day.mintemp_c));
-              // maxArrayFahrenheit.push(parseFloat(forecastFromFile[i].day.maxtemp_f));
-              // minArrayFahrenheit.push(parseFloat(forecastFromFile[i].day.mintemp_f));
+              maxArrayCelcius.push(parseFloat(forecastFromFile[i].day.maxtemp_c));
+              minArrayCelcius.push(parseFloat(forecastFromFile[i].day.mintemp_c));
+              maxArrayFahrenheit.push(parseFloat(forecastFromFile[i].day.maxtemp_f));
+              minArrayFahrenheit.push(parseFloat(forecastFromFile[i].day.mintemp_f));
             }
 
-            // console.log(maxArrayFahrenheit);
-            // console.log(Math.min(minArrayFahrenheit));
+            // Max and Min temperature of 7 days including today
+            let highestTempCelcius = Math.max(...maxArrayCelcius);
+            let highestTempFahrenheit = Math.max(...maxArrayFahrenheit);
+            let lowestTempCelcius = Math.min(...minArrayCelcius); 
+            let lowestTempFahrenheit = Math.min(...minArrayFahrenheit);
 
-            // let highestTempCelcius = Math.max(maxArrayCelcius);
-            // let highestTempFahrenheit = Math.max(maxArrayFahrenheit);
-            // let lowestTempCelcius = Math.min(minArrayCelcius); 
-            // let lowestTempFahrenheit = Math.min(minArrayFahrenheit);
+            console.log(highestTempCelcius, lowestTempCelcius);
+            console.log(highestTempFahrenheit, lowestTempFahrenheit);
 
-            // console.log(highestTempCelcius, lowestTempCelcius);
-            // console.log(highestTempFahrenheit, lowestTempFahrenheit);
-
+            // Average temperature of 7 days including today
             var maxAvgTempCelcius = (maxtempSum_c / forecastFromFile.length).toFixed(2);
-            var maxAvgTemperatureFahrenheit = (maxtempSum_f / forecastFromFile.length).toFixed(2);
-            var minAvgTemperatureCelcius = (mintempSum_c / forecastFromFile.length).toFixed(2);
-            var minAvgTemperatureFahrenheit = (mintempSum_f / forecastFromFile.length).toFixed(2);
-
-            console.log(maxAvgTempCelcius, maxAvgTemperatureFahrenheit, minAvgTemperatureCelcius, minAvgTemperatureFahrenheit);
+            var maxAvgTempFahrenheit = (maxtempSum_f / forecastFromFile.length).toFixed(2);
+            var minAvgTempCelcius = (mintempSum_c / forecastFromFile.length).toFixed(2);
+            var minAvgTempFahrenheit = (mintempSum_f / forecastFromFile.length).toFixed(2);
             
-
-            // console.log(locationsFromFile);
-            // console.log(forecastFromFile);
-            // console.log(forecastFromFile.length);
-            // for(var i in forecastFromFile) {
-            //   console.log("Max Temp in celcius = " + forecastFromFile[i].day.maxtemp_c);
-            //   console.log("Max Temp in fahrenheit = " + forecastFromFile[i].day.maxtemp_f);
-            //   console.log("Min Temp in celcius = " + forecastFromFile[i].day.mintemp_c);
-            //   console.log("Min Temp in fahrenheit = " + forecastFromFile[i].day.mintemp_f);
-            //   console.log("Avg Temp in celcius = " + forecastFromFile[i].day.avgtemp_c);
-            //   console.log("Avg Temp in fahrenheit = " + forecastFromFile[i].day.avgtemp_f);
-            //   console.log("Max Wind in mph = " + forecastFromFile[i].day.maxwind_mph);
-            //   console.log("Max Wind in kph = " + forecastFromFile[i].day.maxwind_kph);
-            //   console.log("Avg Humidity = " + forecastFromFile[i].day.avghumidity);
-            //   console.log("Condition = " + forecastFromFile[i].day.condition.text);
-            //   console.log("Sunrise time = " + forecastFromFile[i].astro.sunrise);
-            //   console.log("Sunset time = " + forecastFromFile[i].astro.sunset);
-            //   for(var j in forecastFromFile[i].hour) {
-            //     console.log(forecastFromFile[i].hour[j]);
-            //   }
-            // }
-            res.render("weather-report", { locationsFromFile, forecastDay, forecastAstro, forecastHour, today });
+            res.render("weather-report", { locationsFromFile, forecastDay, forecastAstro, forecastHour, today, highestTempCelcius, highestTempFahrenheit, lowestTempCelcius, lowestTempFahrenheit, maxAvgTempCelcius, maxAvgTempFahrenheit, minAvgTempCelcius, minAvgTempFahrenheit});
 
         } else {
           // fetch from api
@@ -159,416 +141,82 @@ router.get("/all/:country/:city", function (req, res) {
               "&aqi=no"
           )
           .then(function (response) {
-            var jsonObject = JSON.stringify(response.data);
-            // console.log(typeof(jsonObject));
-            var object = JSON.parse(jsonObject);
-            // console.log("http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912" + "&q=" + country + "&q=" + city + "&dt=" + sixDaysAgo + "&end_dt=" + today + "&aqi=no");
+            console.log(response.data.location);
 
-            fs.writeFile("api-data.json", jsonObject, (err) => {
-              if (err) {
-                console.error(err);
-              } else {
-                console.log("File written successfully.");
-              }
-            });
+            if(response.data.location.country.toLowerCase() === country && response.data.location.name.toLowerCase() === city) {
+              // store data and render a view
+              var stringifiedData = JSON.stringify(response.data);
+              //var jsonObject = JSON.parse(stringifiedData);
 
-            // var keysArray = Object.keys(object);
+              fs.writeFile("api-data.json", stringifiedData, (err) => {
+                if (err) {
+                  console.error(err);
+                } else {
+                  console.log("File written successfully.");
+                }
+              });
 
-            // var location = new Object();
-            // var forecast = new Object();
+              res.render("index", { title: "Data Served From Api." });
+            } else {
+              res.render("index", { title: "Wrong URL parameter." });
+            }
 
-            // for (var i = 0; i < keysArray.length; i++) {
-            //   var key = keysArray[i];
-            //   if (key === 'location') {
-            //     location = object[key];
-            //   } else if (key === 'forecast') {
-            //     forecast = object[key].forecastday;
-            //     console.log(forecast.length);
-            //     console.log(forecast[0].date);
-            //     console.log(forecast[0].day.maxtemp_c);
-            //     console.log(object[key].forecastday.length);
-            //     console.log(object[key].forecastday[0].day);
-            //     console.log(object[key].forecastday[0].astro);
-            //     console.log(object[key].forecastday[0].hour.length);
-            //     console.log(object[key].forecastday[0].hour[0]);
-            //   }
-
-            // }
-
-            res.render("index", { title: "Data Served From Api." });
           })
           .catch(function (err) {
             console.log(err);
           });
         }
+      } else {
+        axios
+          .get(
+            "https://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912" +
+              "&q=" +
+              country +
+              "&q=" +
+              city +
+              "&dt=" +
+              sixDaysAgo +
+              "&end_dt=" +
+              today +
+              "&aqi=no"
+          )
+          .then(function (response) {
+            // console.log(response.data.location);
+
+            if(response.data.location.country.toLowerCase() === country && response.data.location.name.toLowerCase() === city) {
+              // store data and render a view
+              var stringifiedData = JSON.stringify(response.data);
+              //var jsonObject = JSON.parse(stringifiedData);
+
+              fs.writeFile("api-data.json", stringifiedData, (err) => {
+                if (err) {
+                  console.error(err);
+                } else {
+                  console.log("File written successfully.");
+                }
+              });
+
+              res.render("index", { title: "Data Served From Api." });
+            } else {
+              res.render("index", { title: "Wrong URL parameter." });
+            }
+            
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
       }
     } else {
       // fetch from api
       // let apiData = fetchFromApi(country, city);
       // console.log(apiData);
-      res.render("index", { title: "Rendered when there is no data in Local Storage."})
+      // fs.closeSync(fs.openSync(filepath, 'a'));
+      res.render("index", { title: "Rendered when the file does not exist." });
     }
   } catch (err) {
     console.log(err);
   }
 
-
-
-  // try {
-  //   if (fs.existsSync(path)) {
-  //     console.log("file exists");
-  //     fs.stat("api-data.json", function (err, stats) {
-  //       if (err) {
-  //         console.log(err);
-  //       } else {
-  //         // console.log(stats);
-  //         // console.log(stats.size);
-  //         if (stats.size != 0) {
-  //           fs.readFile(
-  //             "api-data.json",
-  //             { encoding: "utf8", flag: "r" },
-  //             function (err, data) {
-
-  //               var test = JSON.parse(data);
-    
-  //               totalKeys = Object.keys(test);
-    
-  //               // console.log(totalKeys);
-
-  //               console.log(test.location.country);
-  //               console.log(test.forecast.forecastday[6].date);
-    
-  //               for (var i = 0; i < totalKeys.length; i++) {
-  //                 var index = totalKeys[i];
-  //                 if (index == "location") {
-  //                   locationsFromFile = test[index];
-  //                 } else if (index == "forecast") {
-  //                   forecastFromFile = test[index].forecastday;
-  //                 }
-  //               }
-
-  //               var lastIndex = forecastFromFile.length - 1;
-    
-  //               if (locationsFromFile.country.toLowerCase() === country && locationsFromFile.name.toLowerCase() === city && forecastFromFile[lastIndex].date === today) {
-
-  //                 var forecastOfToday = forecastFromFile[lastIndex];
-  //                 // console.log(forecastOfToday);
-
-  //                 console.log(forecastOfToday.day);
-  //                 console.log(forecastOfToday.astro);
-  //                 console.log(forecastOfToday.hour[0]);
-
-  //                 var forecastDay = forecastOfToday.day;
-  //                 var icon = forecastDay.condition.icon.slice(2);
-  //                 console.log(icon);
-  //                 var forecastAstro = forecastOfToday.astro;
-  //                 var forecastHour = forecastOfToday.hour;
-                  
-  //                 // console.log(forecastDay);
-  //                 // console.log(forecastAstro);
-  //                 // console.log(forecastHour);
-  //                 // send data from localStorage
-  //                 console.log("data served from localStorage");
-
-  //                 //let 
-
-  //                 for(var i in forecastFromFile) {
-
-  //                 }
-  //                 // console.log(locationsFromFile);
-  //                 // console.log(forecastFromFile);
-  //                 // console.log(forecastFromFile.length);
-  //                 // for(var i in forecastFromFile) {
-  //                 //   console.log("Max Temp in celcius = " + forecastFromFile[i].day.maxtemp_c);
-  //                 //   console.log("Max Temp in fahrenheit = " + forecastFromFile[i].day.maxtemp_f);
-  //                 //   console.log("Min Temp in celcius = " + forecastFromFile[i].day.mintemp_c);
-  //                 //   console.log("Min Temp in fahrenheit = " + forecastFromFile[i].day.mintemp_f);
-  //                 //   console.log("Avg Temp in celcius = " + forecastFromFile[i].day.avgtemp_c);
-  //                 //   console.log("Avg Temp in fahrenheit = " + forecastFromFile[i].day.avgtemp_f);
-  //                 //   console.log("Max Wind in mph = " + forecastFromFile[i].day.maxwind_mph);
-  //                 //   console.log("Max Wind in kph = " + forecastFromFile[i].day.maxwind_kph);
-  //                 //   console.log("Avg Humidity = " + forecastFromFile[i].day.avghumidity);
-  //                 //   console.log("Condition = " + forecastFromFile[i].day.condition.text);
-  //                 //   console.log("Sunrise time = " + forecastFromFile[i].astro.sunrise);
-  //                 //   console.log("Sunset time = " + forecastFromFile[i].astro.sunset);
-  //                 //   for(var j in forecastFromFile[i].hour) {
-  //                 //     console.log(forecastFromFile[i].hour[j]);
-  //                 //   }
-  //                 // }
-  //                 res.render("weather-report", { locationsFromFile, forecastDay, forecastAstro, forecastHour, today, icon });
-  //                 // res.render("loop", {locationsFromFile, forecastFromFile });
-  //               } else {
-  //                 // send axios request
-  //                 axios
-  //                   .get(
-  //                     "http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912" +
-  //                       "&q=" +
-  //                       country +
-  //                       "&q=" +
-  //                       city +
-  //                       "&dt=" +
-  //                       sixDaysAgo +
-  //                       "&end_dt=" +
-  //                       today +
-  //                       "&aqi=no"
-  //                   )
-  //                   .then(function (response) {
-  //                     var jsonObject = JSON.stringify(response.data);
-  //                     // console.log(typeof(jsonObject));
-  //                     var object = JSON.parse(jsonObject);
-  //                     console.log("http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912" + "&q=" + country + "&q=" + city + "&dt=" + sixDaysAgo + "&end_dt=" + today + "&aqi=no");
-    
-  //                     fs.writeFile("api-data.json", jsonObject, (err) => {
-  //                       if (err) {
-  //                         console.error(err);
-  //                       } else {
-  //                         console.log("File written successfully.");
-  //                       }
-  //                     });
-    
-  //                     // var keysArray = Object.keys(object);
-    
-  //                     // var location = new Object();
-  //                     // var forecast = new Object();
-    
-  //                     // for (var i = 0; i < keysArray.length; i++) {
-  //                     //   var key = keysArray[i];
-  //                     //   if (key === 'location') {
-  //                     //     location = object[key];
-  //                     //   } else if (key === 'forecast') {
-  //                     //     forecast = object[key].forecastday;
-  //                     //     console.log(forecast.length);
-  //                     //     console.log(forecast[0].date);
-  //                     //     console.log(forecast[0].day.maxtemp_c);
-  //                     //     console.log(object[key].forecastday.length);
-  //                     //     console.log(object[key].forecastday[0].day);
-  //                     //     console.log(object[key].forecastday[0].astro);
-  //                     //     console.log(object[key].forecastday[0].hour.length);
-  //                     //     console.log(object[key].forecastday[0].hour[0]);
-  //                     //   }
-    
-  //                     // }
-    
-  //                     res.render("index", { title: "Data Served From Api." });
-  //                   })
-  //                   .catch(function (err) {
-  //                     console.log(err);
-  //                   });
-  //               }
-    
-  //               // console.log(locationsFromFile.name);
-  //               // console.log(forecastFromFile[0].hour[0]);
-  //             }
-  //           );
-  //         } else {
-  //           // send axios request
-  //           axios
-  //             .get(
-  //               "http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912" +
-  //                 "&q=" +
-  //                 country +
-  //                 "&q=" +
-  //                 city +
-  //                 "&dt=" +
-  //                 sixDaysAgo +
-  //                 "&end_dt=" +
-  //                 today +
-  //                 "&aqi=no"
-  //             )
-  //             .then(function (response) {
-  //               var jsonObject = JSON.stringify(response.data);
-  //               // console.log(typeof(jsonObject));
-  //               var object = JSON.parse(jsonObject);
-
-  //               fs.writeFile("api-data.json", jsonObject, (err) => {
-  //                 if (err) {
-  //                   console.error(err);
-  //                 } else {
-  //                   console.log("File written successfully.");
-  //                 }
-  //               });
-
-  //               // var keysArray = Object.keys(object);
-
-  //               // var location = new Object();
-  //               // var forecast = new Object();
-
-  //               // for (var i = 0; i < keysArray.length; i++) {
-  //               //   var key = keysArray[i];
-  //               //   if (key === 'location') {
-  //               //     location = object[key];
-  //               //   } else if (key === 'forecast') {
-  //               //     forecast = object[key].forecastday;
-  //               //     console.log(forecast.length);
-  //               //     console.log(forecast[0].date);
-  //               //     console.log(forecast[0].day.maxtemp_c);
-  //               //     console.log(object[key].forecastday.length);
-  //               //     console.log(object[key].forecastday[0].day);
-  //               //     console.log(object[key].forecastday[0].astro);
-  //               //     console.log(object[key].forecastday[0].hour.length);
-  //               //     console.log(object[key].forecastday[0].hour[0]);
-  //               //   }
-
-  //               // }
-
-  //               res.render("index", { title: "Data Served From Api." });
-  //             })
-  //             .catch(function (err) {
-  //               console.log(err);
-  //             });
-  //         }
-  //       }
-  //     });
-
-  //   }
-  // } catch (err) {
-  //   console.log(err);
-  // }
-
-  // fs.stat("api-data.json", function (err, stats) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log(stats);
-  //     // console.log(stats.size);
-  //     if (stats.size != 0) {
-  //       fs.readFile(
-  //         "api-data.json",
-  //         { encoding: "utf8", flag: "r" },
-  //         function (err, data) {
-  //           // if (err) {
-  //           //   console.log(err);
-  //           // }
-  //           //else {
-  //           console.log(data.length);
-  //           var test = JSON.parse(data);
-
-  //           totalKeys = Object.keys(test);
-
-  //           console.log(totalKeys);
-
-  //           for (var i = 0; i < totalKeys.length; i++) {
-  //             var index = totalKeys[i];
-  //             if (index == "location") {
-  //               locationsFromFile = test[index];
-  //             } else if (index == "forecast") {
-  //               forecastFromFile = test[index].forecastday;
-  //             }
-  //           }
-
-  //           if (
-  //             locationsFromFile.country.toLowerCase() === country &&
-  //             locationsFromFile.name.toLowerCase() === city
-  //           ) {
-  //             // send data from localStorage
-  //             console.log("data served from localStorage");
-  //             res.render("index", { title: "Data Served From LocalStorage." });
-  //           } else {
-  //             // send axios request
-  //             axios
-  //               .get(
-  //                 "http://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912" +
-  //                   "&q=" +
-  //                   country +
-  //                   "&q=" +
-  //                   city +
-  //                   "&dt=2021-12-28" +
-  //                   "&aqi=no"
-  //               )
-  //               .then(function (response) {
-  //                 var jsonObject = JSON.stringify(response.data);
-  //                 // console.log(typeof(jsonObject));
-  //                 var object = JSON.parse(jsonObject);
-
-  //                 fs.writeFile("api-data.json", jsonObject, (err) => {
-  //                   if (err) {
-  //                     console.error(err);
-  //                   } else {
-  //                     console.log("File written successfully.");
-  //                   }
-  //                 });
-
-  //                 // var keysArray = Object.keys(object);
-
-  //                 // var location = new Object();
-  //                 // var forecast = new Object();
-
-  //                 // for (var i = 0; i < keysArray.length; i++) {
-  //                 //   var key = keysArray[i];
-  //                 //   if (key === 'location') {
-  //                 //     location = object[key];
-  //                 //   } else if (key === 'forecast') {
-  //                 //     forecast = object[key].forecastday;
-  //                 //     console.log(forecast.length);
-  //                 //     console.log(forecast[0].date);
-  //                 //     console.log(forecast[0].day.maxtemp_c);
-  //                 //     console.log(object[key].forecastday.length);
-  //                 //     console.log(object[key].forecastday[0].day);
-  //                 //     console.log(object[key].forecastday[0].astro);
-  //                 //     console.log(object[key].forecastday[0].hour.length);
-  //                 //     console.log(object[key].forecastday[0].hour[0]);
-  //                 //   }
-
-  //                 // }
-
-  //                 res.render("index", { title: "Data Served From Api." });
-  //               })
-  //               .catch(function (err) {
-  //                 console.log(err);
-  //               });
-  //           }
-
-  //           // console.log(locationsFromFile.name);
-  //           // console.log(forecastFromFile[0].hour[0]);
-  //         }
-  //       );
-  //     }
-  //   }
-  // });
-
-  //     // try {
-  //     //   if (fs.existsSync(path)) {
-  //     //     console.log('file exists');
-  //     //     // Calling the fs.readFileSync() method
-  //     //     // for reading file
-  //     //     // const data = fs.readFileSync(path, { encoding: 'utf8', flag: 'r' });
-
-  //     //     // Display data
-  //     //     // console.log(data);
-
-  //     //   }
-  //     // } catch (err) {
-  //     //   console.log(err);
-  //     // }
-
-  //     // var keysArray = Object.keys(object);
-
-  //     // var location = new Object();
-  //     // var forecast = new Object();
-
-  //     // for (var i = 0; i < keysArray.length; i++) {
-  //     //   var key = keysArray[i];
-  //     //   if (key === 'location') {
-  //     //     location = object[key];
-  //     //   } else if (key === 'forecast') {
-  //     //     forecast = object[key].forecastday;
-  //     //     console.log(forecast.length);
-  //     //     console.log(forecast[0].date);
-  //     //     console.log(forecast[0].day.maxtemp_c);
-  //     //     console.log(object[key].forecastday.length);
-  //     //     console.log(object[key].forecastday[0].day);
-  //     //     console.log(object[key].forecastday[0].astro);
-  //     //     console.log(object[key].forecastday[0].hour.length);
-  //     //     console.log(object[key].forecastday[0].hour[0]);
-  //     //   }
-
-  //     // }
-
-  //     res.render('index', { title: "Saklain" });
-  //   })
-  //   .catch(function (err) {
-  //     console.log(err);
-  //   })
 });
 
 
