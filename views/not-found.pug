@@ -57,9 +57,5 @@ style.
 .text
   span Ooops...
   br
-.div 
-  //- these are default error messages
-  h1= message
-  h2= error.status
-  pre(style="text-align:left; margin-left:10%; font-size: 15px;") #{error.stack}
-
+  | #{message}
+a.me(href='https://codepen.io/uzcho_/pens/popular/?grid_type=list' target='_blank')

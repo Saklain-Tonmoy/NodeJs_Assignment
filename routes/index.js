@@ -258,7 +258,7 @@ router.get("/all/:country/:city", function (req, res) {
 
               // res.render("index", { title: "Data Served From Api." });
             } else {
-              res.render("index", { title: "Wrong URL parameter." });
+              res.render("not-found", { message: "Data not found. Wrong URL parameter." });
             }
           })
           .catch(function (err) {
@@ -376,7 +376,7 @@ router.get("/all/:country/:city", function (req, res) {
 
             // res.render("index", { title: "Data Served From Api." });
           } else {
-            res.render("index", { title: "Wrong URL parameter." });
+            res.render("not-found", { message: "Data not found. Wrong URL parameter." });
           }
         })
         .catch(function (err) {
@@ -580,7 +580,7 @@ router.get("/all/:place", function (req, res) {
                 minAvgTempFahrenheit,
               });
             } else {
-              res.render("index", { title: "Wrong URL parameter." });
+              res.render("not-found", { message: "Data not found. Wrong URL parameter." });
             }
           })
           .catch(function (err) {
@@ -690,7 +690,7 @@ router.get("/all/:place", function (req, res) {
               minAvgTempFahrenheit,
             });
           } else {
-            res.render("index", { title: "Wrong URL parameter." });
+            res.render("not-found", { message: "Data not found. Wrong URL parameter." });
           }
         })
         .catch(function (err) {
