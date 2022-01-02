@@ -15,28 +15,6 @@ const sixDaysAgo = new Date(todayInMilliseconds - 6 * oneDayInMilliseconds)
   .slice(0, 10);
 console.log(sixDaysAgo);
 
-// function fetchFromApi(country, city) {
-//   var url = "https://api.weatherapi.com/v1/history.json?key=18163b2b531c4d2097941247212912"
-//               + "&q=" + country +
-//               + "&q=" + city +
-//               "&dt=" + 2021-12-27 +
-//               "&end_dt=" + 2021-12-31 + "&aqi=no";
-
-//   var data = null;
-
-//   axios.get(url)
-//         .then(function(response) {
-//           data = response.data;
-//         })
-//         .catch(function(err) {
-//           console.log(err);
-//         });
-
-//   console.log(data);
-
-//   return JSON.stringify(data);
-// };
-
 router.get("/", function (req, res) {
   res.render("index", { title: "Welcome to Express Weather App.", today });
 });
@@ -51,9 +29,7 @@ router.get("/all/:country/:city", function (req, res) {
 
   try {
     var fileData = fs.readFileSync(path, { encoding: "utf8", flag: "r" });
-    console.log(fileData.length);
-    // console.log(data);
-    // console.log(data.length);
+
     if (fileData.length != 0) {
       let jsonData = JSON.parse(fileData);
       let lastIndexFromFile = jsonData.forecast.forecastday.length - 1;
@@ -64,7 +40,10 @@ router.get("/all/:country/:city", function (req, res) {
       ) {
         // loading file data
         let dataKeys = Object.keys(jsonData);
+
+        // that's how to declare and assign multiple variables at a time
         var locations = (forecast = new Object());
+
         for (var i = 0; i < dataKeys.length; i++) {
           var index = dataKeys[i];
           if (index == "location") {
@@ -75,7 +54,6 @@ router.get("/all/:country/:city", function (req, res) {
         }
 
         var forecastOfToday = forecast[lastIndexFromFile];
-        // console.log(forecastOfToday);
 
         var forecastDay = forecastOfToday.day;
         var forecastAstro = forecastOfToday.astro;
@@ -83,7 +61,9 @@ router.get("/all/:country/:city", function (req, res) {
 
         console.log("data served from localStorage");
 
+        // that's how to declare and assign multiple variables at a time
         var maxtempSum_c = (mintempSum_c = maxtempSum_f = mintempSum_f = 0);
+
         var maxArrayCelcius = [];
         var minArrayCelcius = [];
         var maxArrayFahrenheit = [];
@@ -91,7 +71,6 @@ router.get("/all/:country/:city", function (req, res) {
 
         for (var i = 0; i < forecast.length; i++) {
           maxtempSum_c += forecast[i].day.maxtemp_c;
-          console.log(forecast[i].day.maxtemp_c);
           mintempSum_c += forecast[i].day.mintemp_c;
           maxtempSum_f += forecast[i].day.maxtemp_f;
           mintempSum_f += forecast[i].day.mintemp_f;
@@ -101,14 +80,16 @@ router.get("/all/:country/:city", function (req, res) {
           minArrayFahrenheit.push(parseFloat(forecast[i].day.mintemp_f));
         }
 
-        // Max and Min temperature of 7 days including today
+        console.log(maxtempSum_c);
+        console.log(maxArrayCelcius);
+
+        // Max and Min temperature of 7 days including today.
+        // this (...) 3 dots extracts the values from array.
+        // it's called Array/Object spread operator
         let highestTempCelcius = Math.max(...maxArrayCelcius);
         let highestTempFahrenheit = Math.max(...maxArrayFahrenheit);
         let lowestTempCelcius = Math.min(...minArrayCelcius);
         let lowestTempFahrenheit = Math.min(...minArrayFahrenheit);
-
-        console.log(highestTempCelcius, lowestTempCelcius);
-        console.log(highestTempFahrenheit, lowestTempFahrenheit);
 
         // Average temperature of 7 days including today
         var maxAvgTempCelcius = (maxtempSum_c / forecast.length).toFixed(2);
@@ -132,12 +113,6 @@ router.get("/all/:country/:city", function (req, res) {
           minAvgTempFahrenheit,
         });
       } else {
-        // fetch from api
-        // let apiData = fetchFromApi(country, city);
-        // console.log(apiData);
-        // res.render('index', {title: 'Weather'});
-
-        console.log("Hit this condition.");
         // send axios request
         axios
           .get(
@@ -162,7 +137,6 @@ router.get("/all/:country/:city", function (req, res) {
             ) {
               // store data and render a view
               var stringifiedData = JSON.stringify(response.data);
-              //var jsonObject = JSON.parse(stringifiedData);
 
               fs.writeFile("api-data.json", stringifiedData, (err) => {
                 if (err) {
@@ -172,10 +146,11 @@ router.get("/all/:country/:city", function (req, res) {
                 }
               });
 
-              console.log(Object.keys(response.data));
-
               let dataKeys = Object.keys(response.data);
+
+              // that's how to declare and assign multiple variables at a time
               var locations = (forecast = new Object());
+
               for (var i = 0; i < dataKeys.length; i++) {
                 var index = dataKeys[i];
                 if (index == "location") {
@@ -198,13 +173,11 @@ router.get("/all/:country/:city", function (req, res) {
                 maxtempSum_f =
                 mintempSum_f =
                   0);
-              
-              // that's how to declare and assign multiple variables at a time
-              var maxArrayCelcius =
-                (minArrayCelcius =
-                maxArrayFahrenheit =
-                minArrayFahrenheit =
-                  []);
+
+              var maxArrayCelcius = [];
+              var minArrayCelcius = [];
+              var maxArrayFahrenheit = [];
+              var minArrayFahrenheit = [];
 
               for (var i = 0; i < forecast.length; i++) {
                 maxtempSum_c += forecast[i].day.maxtemp_c;
@@ -217,27 +190,22 @@ router.get("/all/:country/:city", function (req, res) {
                 minArrayFahrenheit.push(parseFloat(forecast[i].day.mintemp_f));
               }
 
+              console.log(maxtempSum_c);
               console.log(maxArrayCelcius);
 
-              // Max and Min temperature of 7 days including today. this (...) 3 dots extracts the values from array. it's called Array/Object spread operator
+              // Max and Min temperature of 7 days including today.
+              // this (...) 3 dots extracts the values from array.
+              // it's called Array/Object spread operator
               let highestTempCelcius = Math.max(...maxArrayCelcius);
               let highestTempFahrenheit = Math.max(...maxArrayFahrenheit);
               let lowestTempCelcius = Math.min(...minArrayCelcius);
               let lowestTempFahrenheit = Math.min(...minArrayFahrenheit);
 
               // Average temperature of 7 days including today
-              var maxAvgTempCelcius = (maxtempSum_c / forecast.length).toFixed(
-                2
-              );
-              var maxAvgTempFahrenheit = (
-                maxtempSum_f / forecast.length
-              ).toFixed(2);
-              var minAvgTempCelcius = (mintempSum_c / forecast.length).toFixed(
-                2
-              );
-              var minAvgTempFahrenheit = (
-                mintempSum_f / forecast.length
-              ).toFixed(2);
+              var maxAvgTempCelcius = (maxtempSum_c / forecast.length).toFixed(2);
+              var maxAvgTempFahrenheit = (maxtempSum_f / forecast.length).toFixed(2);
+              var minAvgTempCelcius = (mintempSum_c / forecast.length).toFixed(2);
+              var minAvgTempFahrenheit = (mintempSum_f / forecast.length).toFixed(2);
 
               console.log("Data served from Api");
               res.render("weather-report", {
@@ -258,7 +226,9 @@ router.get("/all/:country/:city", function (req, res) {
 
               // res.render("index", { title: "Data Served From Api." });
             } else {
-              res.render("not-found", { message: "Data not found. Wrong URL parameter." });
+              res.render("not-found", {
+                message: "Data not found. Wrong URL parameter.",
+              });
             }
           })
           .catch(function (err) {
@@ -289,7 +259,6 @@ router.get("/all/:country/:city", function (req, res) {
           ) {
             // store data and render a view
             var stringifiedData = JSON.stringify(response.data);
-            //var jsonObject = JSON.parse(stringifiedData);
 
             fs.writeFile("api-data.json", stringifiedData, (err) => {
               if (err) {
@@ -298,8 +267,6 @@ router.get("/all/:country/:city", function (req, res) {
                 console.log("File written successfully.");
               }
             });
-
-            console.log(Object.keys(response.data));
 
             let dataKeys = Object.keys(response.data);
             var locations = (forecast = new Object());
@@ -314,13 +281,14 @@ router.get("/all/:country/:city", function (req, res) {
 
             let lastIndex = forecast.length - 1;
             var forecastOfToday = forecast[lastIndex];
-            // console.log(forecastOfToday);
 
             var forecastDay = forecastOfToday.day;
             var forecastAstro = forecastOfToday.astro;
             var forecastHour = forecastOfToday.hour;
 
+            // that's how to declare and assign multiple variables at a time
             var maxtempSum_c = (mintempSum_c = maxtempSum_f = mintempSum_f = 0);
+
             var maxArrayCelcius = [];
             var minArrayCelcius = [];
             var maxArrayFahrenheit = [];
@@ -328,7 +296,6 @@ router.get("/all/:country/:city", function (req, res) {
 
             for (var i = 0; i < forecast.length; i++) {
               maxtempSum_c += forecast[i].day.maxtemp_c;
-              console.log(forecast[i].day.maxtemp_c);
               mintempSum_c += forecast[i].day.mintemp_c;
               maxtempSum_f += forecast[i].day.maxtemp_f;
               mintempSum_f += forecast[i].day.mintemp_f;
@@ -338,24 +305,22 @@ router.get("/all/:country/:city", function (req, res) {
               minArrayFahrenheit.push(parseFloat(forecast[i].day.mintemp_f));
             }
 
-            // Max and Min temperature of 7 days including today
+            console.log(maxtempSum_c);
+            console.log(maxArrayCelcius);
+
+            // Max and Min temperature of 7 days including today.
+            // this (...) 3 dots extracts the values from array.
+            // it's called Array/Object spread operator
             let highestTempCelcius = Math.max(...maxArrayCelcius);
             let highestTempFahrenheit = Math.max(...maxArrayFahrenheit);
             let lowestTempCelcius = Math.min(...minArrayCelcius);
             let lowestTempFahrenheit = Math.min(...minArrayFahrenheit);
 
-            console.log(highestTempCelcius, lowestTempCelcius);
-            console.log(highestTempFahrenheit, lowestTempFahrenheit);
-
             // Average temperature of 7 days including today
             var maxAvgTempCelcius = (maxtempSum_c / forecast.length).toFixed(2);
-            var maxAvgTempFahrenheit = (maxtempSum_f / forecast.length).toFixed(
-              2
-            );
+            var maxAvgTempFahrenheit = (maxtempSum_f / forecast.length).toFixed(2);
             var minAvgTempCelcius = (mintempSum_c / forecast.length).toFixed(2);
-            var minAvgTempFahrenheit = (mintempSum_f / forecast.length).toFixed(
-              2
-            );
+            var minAvgTempFahrenheit = (mintempSum_f / forecast.length).toFixed(2);
 
             console.log("Data served from Api");
             res.render("weather-report", {
@@ -373,10 +338,10 @@ router.get("/all/:country/:city", function (req, res) {
               minAvgTempCelcius,
               minAvgTempFahrenheit,
             });
-
-            // res.render("index", { title: "Data Served From Api." });
           } else {
-            res.render("not-found", { message: "Data not found. Wrong URL parameter." });
+            res.render("not-found", {
+              message: "Data not found. Wrong URL parameter.",
+            });
           }
         })
         .catch(function (err) {
@@ -419,7 +384,6 @@ router.get("/all/:place", function (req, res) {
         }
 
         var forecastOfToday = forecast[lastIndexFromFile];
-        // console.log(forecastOfToday);
 
         var forecastDay = forecastOfToday.day;
         var forecastAstro = forecastOfToday.astro;
@@ -427,7 +391,9 @@ router.get("/all/:place", function (req, res) {
 
         console.log("data served from localStorage");
 
+        // that's how to declare and assign multiple variables at a time
         var maxtempSum_c = (mintempSum_c = maxtempSum_f = mintempSum_f = 0);
+
         var maxArrayCelcius = [];
         var minArrayCelcius = [];
         var maxArrayFahrenheit = [];
@@ -435,7 +401,6 @@ router.get("/all/:place", function (req, res) {
 
         for (var i = 0; i < forecast.length; i++) {
           maxtempSum_c += forecast[i].day.maxtemp_c;
-          console.log(forecast[i].day.maxtemp_c);
           mintempSum_c += forecast[i].day.mintemp_c;
           maxtempSum_f += forecast[i].day.maxtemp_f;
           mintempSum_f += forecast[i].day.mintemp_f;
@@ -445,14 +410,14 @@ router.get("/all/:place", function (req, res) {
           minArrayFahrenheit.push(parseFloat(forecast[i].day.mintemp_f));
         }
 
+        console.log(maxtempSum_c);
+        console.log(maxArrayCelcius);
+
         // Max and Min temperature of 7 days including today
         let highestTempCelcius = Math.max(...maxArrayCelcius);
         let highestTempFahrenheit = Math.max(...maxArrayFahrenheit);
         let lowestTempCelcius = Math.min(...minArrayCelcius);
         let lowestTempFahrenheit = Math.min(...minArrayFahrenheit);
-
-        console.log(highestTempCelcius, lowestTempCelcius);
-        console.log(highestTempFahrenheit, lowestTempFahrenheit);
 
         // Average temperature of 7 days including today
         var maxAvgTempCelcius = (maxtempSum_c / forecast.length).toFixed(2);
@@ -505,7 +470,10 @@ router.get("/all/:place", function (req, res) {
               });
 
               let dataKeys = Object.keys(response.data);
+
+              // that's how to declare and assign multiple variables at a time
               var locations = (forecast = new Object());
+
               for (var i = 0; i < dataKeys.length; i++) {
                 var index = dataKeys[i];
                 if (index == "location") {
@@ -522,11 +490,13 @@ router.get("/all/:place", function (req, res) {
               var forecastAstro = forecastOfToday.astro;
               var forecastHour = forecastOfToday.hour;
 
+              // that's how to declare and assign multiple variables at a time'
               var maxtempSum_c =
                 (mintempSum_c =
                 maxtempSum_f =
                 mintempSum_f =
                   0);
+
               var maxArrayCelcius = [];
               var minArrayCelcius = [];
               var maxArrayFahrenheit = [];
@@ -543,25 +513,22 @@ router.get("/all/:place", function (req, res) {
                 minArrayFahrenheit.push(parseFloat(forecast[i].day.mintemp_f));
               }
 
-              // Max and Min temperature of 7 days including today
+              console.log(maxtempSum_c);
+              console.log(maxArrayCelcius);
+
+              // Max and Min temperature of 7 days including today.
+              // this (...) 3 dots extracts the values from array.
+              // it's called Array/Object spread operator
               let highestTempCelcius = Math.max(...maxArrayCelcius);
               let highestTempFahrenheit = Math.max(...maxArrayFahrenheit);
               let lowestTempCelcius = Math.min(...minArrayCelcius);
               let lowestTempFahrenheit = Math.min(...minArrayFahrenheit);
 
               // Average temperature of 7 days including today
-              var maxAvgTempCelcius = (maxtempSum_c / forecast.length).toFixed(
-                2
-              );
-              var maxAvgTempFahrenheit = (
-                maxtempSum_f / forecast.length
-              ).toFixed(2);
-              var minAvgTempCelcius = (mintempSum_c / forecast.length).toFixed(
-                2
-              );
-              var minAvgTempFahrenheit = (
-                mintempSum_f / forecast.length
-              ).toFixed(2);
+              var maxAvgTempCelcius = (maxtempSum_c / forecast.length).toFixed(2);
+              var maxAvgTempFahrenheit = (maxtempSum_f / forecast.length).toFixed(2);
+              var minAvgTempCelcius = (mintempSum_c / forecast.length).toFixed(2);
+              var minAvgTempFahrenheit = (mintempSum_f / forecast.length).toFixed(2);
 
               console.log("Data served from Api");
               res.render("weather-report", {
@@ -580,7 +547,9 @@ router.get("/all/:place", function (req, res) {
                 minAvgTempFahrenheit,
               });
             } else {
-              res.render("not-found", { message: "Data not found. Wrong URL parameter." });
+              res.render("not-found", {
+                message: "Data not found. Wrong URL parameter.",
+              });
             }
           })
           .catch(function (err) {
@@ -616,9 +585,9 @@ router.get("/all/:place", function (req, res) {
               }
             });
 
-            console.log(Object.keys(response.data));
-
             let dataKeys = Object.keys(response.data);
+
+            // that's how to declare and assign multiple variables at a time
             var locations = (forecast = new Object());
             for (var i = 0; i < dataKeys.length; i++) {
               var index = dataKeys[i];
@@ -636,7 +605,9 @@ router.get("/all/:place", function (req, res) {
             var forecastAstro = forecastOfToday.astro;
             var forecastHour = forecastOfToday.hour;
 
+            // that's how to declare and assign multiple variables at a time
             var maxtempSum_c = (mintempSum_c = maxtempSum_f = mintempSum_f = 0);
+
             var maxArrayCelcius = [];
             var minArrayCelcius = [];
             var maxArrayFahrenheit = [];
@@ -654,24 +625,22 @@ router.get("/all/:place", function (req, res) {
               minArrayFahrenheit.push(parseFloat(forecast[i].day.mintemp_f));
             }
 
-            // Max and Min temperature of 7 days including today
+            console.log(maxtempSum_c);
+            console.log(maxArrayCelcius);
+
+            // Max and Min temperature of 7 days including today.
+            // this (...) 3 dots extracts the values from array.
+            // it's called Array/Object spread operator
             let highestTempCelcius = Math.max(...maxArrayCelcius);
             let highestTempFahrenheit = Math.max(...maxArrayFahrenheit);
             let lowestTempCelcius = Math.min(...minArrayCelcius);
             let lowestTempFahrenheit = Math.min(...minArrayFahrenheit);
 
-            console.log(highestTempCelcius, lowestTempCelcius);
-            console.log(highestTempFahrenheit, lowestTempFahrenheit);
-
             // Average temperature of 7 days including today
             var maxAvgTempCelcius = (maxtempSum_c / forecast.length).toFixed(2);
-            var maxAvgTempFahrenheit = (maxtempSum_f / forecast.length).toFixed(
-              2
-            );
+            var maxAvgTempFahrenheit = (maxtempSum_f / forecast.length).toFixed(2);
             var minAvgTempCelcius = (mintempSum_c / forecast.length).toFixed(2);
-            var minAvgTempFahrenheit = (mintempSum_f / forecast.length).toFixed(
-              2
-            );
+            var minAvgTempFahrenheit = (mintempSum_f / forecast.length).toFixed(2);
 
             console.log("Data served from Api");
             res.render("weather-report", {
@@ -690,7 +659,9 @@ router.get("/all/:place", function (req, res) {
               minAvgTempFahrenheit,
             });
           } else {
-            res.render("not-found", { message: "Data not found. Wrong URL parameter." });
+            res.render("not-found", {
+              message: "Data not found. Wrong URL parameter.",
+            });
           }
         })
         .catch(function (err) {
