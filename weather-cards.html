@@ -18,23 +18,23 @@
 
 <style>
     .gradient-custom {
-  /* fallback for old browsers */
-  background: #ffffff;
+        /* fallback for old browsers */
+        background: #ffffff;
 
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 236, 210, 1));
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 236, 210, 1));
 
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 236, 210, 1))
-}
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 236, 210, 1))
+    }
 
-.carousel-indicators li {
-  background-color: #282828;
-  width: 7px;
-  height: 7px;
-  margin: 2px;
-  border-radius: 50%;
-}
+    .carousel-indicators li {
+        background-color: #282828;
+        width: 7px;
+        height: 7px;
+        margin: 2px;
+        border-radius: 50%;
+    }
 </style>
 
 <body>
@@ -45,11 +45,12 @@
                     <h1 class="text-center" style="color: rgb(3, 62, 97);">24 Hours Weather Report of 25th December</h1>
                 </div>
             </div>
-           
+
             <div class="row">
                 <div class="col-md-3 mb-4">
 
-                    <div class="card" style="color: #fff; border: none; border-radius: 35px; background-color: rgb(3, 62, 97);">
+                    <div class="card"
+                        style="color: #fff; border: none; border-radius: 35px; background-color: rgb(3, 62, 97);">
                         <div class="card-body p-4">
 
                             <div class="d-flex">
@@ -190,104 +191,110 @@
 
 
     <section class="container-fluid mt-t py-5">
-        <div id="carouselExampleIndicators" class="container carousel slide py-5" data-bs-ride="carousel" style="color: #fff; border: none; border-radius: 35px; background-color: rgb(3, 62, 97);">
+        <div id="carouselExampleIndicators" class="container carousel slide py-5" data-bs-ride="carousel"
+            style="color: #fff; border: none; border-radius: 35px; background-color: rgb(3, 62, 97);">
             <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <!-- <img src="..." class="d-block w-100" alt="..."> -->
-                <div class="d-flex justify-content-around align-items-center mb-4 pb-2">
-                    <div>
-                      <h2 class="display-2"><strong>23°C</strong></h2>
-                      <p class="text-white mb-0">Coimbra, Portugal</p>
+                <div class="carousel-item active">
+                    <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                    <div class="d-flex justify-content-around align-items-center mb-4 pb-2">
+                        <div>
+                            <h2 class="display-2"><strong>23°C</strong></h2>
+                            <p class="text-white mb-0">Coimbra, Portugal</p>
+                        </div>
+                        <div>
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu3.webp"
+                                width="150px">
+                        </div>
                     </div>
-                    <div>
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu3.webp"
-                        width="150px">
-                    </div>
-                  </div>
-              </div>
+                </div>
                 <!-- <img src="..." class="d-block w-100" alt="..."> -->
                 <div class="carousel-item">
                     <div class="d-flex justify-content-around text-center mb-4 pb-3 pt-2">
-                      <div class="flex-column">
-                        <p class="small"><strong>21°C</strong></p>
-                        <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
-                        <p class="mb-0"><strong>12:00</strong></p>
-                        <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
-                      </div>
-                      <div class="flex-column">
-                        <p class="small"><strong>2°C</strong></p>
-                        <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
-                        <p class="mb-0"><strong>1:00</strong></p>
-                        <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
-                      </div>
-                      <div class="flex-column">
-                        <p class="small"><strong>20°C</strong></p>
-                        <i class="fas fa-cloud fa-2x mb-3" style="color: #ddd;"></i>
-                        <p class="mb-0"><strong>2:00</strong></p>
-                        <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
-                      </div>
-                      <div class="flex-column">
-                        <p class="small"><strong>19°C</strong></p>
-                        <i class="fas fa-cloud fa-2x mb-3" style="color: #ddd;"></i>
-                        <p class="mb-0"><strong>3:00</strong></p>
-                        <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
-                      </div>
-                      <div class="flex-column">
-                        <p class="small"><strong>18°C</strong></p>
-                        <i class="fas fa-cloud-showers-heavy fa-2x mb-3" style="color: #ddd;"></i>
-                        <p class="mb-0"><strong>4:00</strong></p>
-                        <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
-                      </div>
+                        <div class="flex-column">
+                            <p class="small"><strong>21°C</strong></p>
+                            <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>12:00</strong></p>
+                            <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
+                        </div>
+                        <div class="flex-column">
+                            <p class="small"><strong>2°C</strong></p>
+                            <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>1:00</strong></p>
+                            <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
+                        </div>
+                        <div class="flex-column">
+                            <p class="small"><strong>20°C</strong></p>
+                            <i class="fas fa-cloud fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>2:00</strong></p>
+                            <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
+                        </div>
+                        <div class="flex-column">
+                            <p class="small"><strong>19°C</strong></p>
+                            <i class="fas fa-cloud fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>3:00</strong></p>
+                            <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
+                        </div>
+                        <div class="flex-column">
+                            <p class="small"><strong>18°C</strong></p>
+                            <i class="fas fa-cloud-showers-heavy fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>4:00</strong></p>
+                            <p class="mb-0 text-white" style="font-size: .65rem;">PM</p>
+                        </div>
                     </div>
-                  </div>
-              <div class="carousel-item">
-                <!-- <img src="..." class="d-block w-100" alt="..."> -->
-                <div class="d-flex justify-content-around text-center mb-4 pb-3 pt-2">
-                    <div class="flex-column">
-                      <p class="small"><strong>21°C</strong></p>
-                      <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
-                      <p class="mb-0"><strong>Mon</strong></p>
+                </div>
+                <div class="carousel-item">
+                    <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                    <div class="d-flex justify-content-around text-center mb-4 pb-3 pt-2">
+                        <div class="flex-column">
+                            <p class="small"><strong>21°C</strong></p>
+                            <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>Mon</strong></p>
+                        </div>
+                        <div class="flex-column">
+                            <p class="small"><strong>20°C</strong></p>
+                            <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>Tue</strong></p>
+                        </div>
+                        <div class="flex-column">
+                            <p class="small"><strong>16°C</strong></p>
+                            <i class="fas fa-cloud fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>Wed</strong></p>
+                        </div>
+                        <div class="flex-column">
+                            <p class="small"><strong>17°C</strong></p>
+                            <i class="fas fa-cloud fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>Thu</strong></p>
+                        </div>
+                        <div class="flex-column">
+                            <p class="small"><strong>18°C</strong></p>
+                            <i class="fas fa-cloud-showers-heavy fa-2x mb-3" style="color: #ddd;"></i>
+                            <p class="mb-0"><strong>Fri</strong></p>
+                        </div>
                     </div>
-                    <div class="flex-column">
-                      <p class="small"><strong>20°C</strong></p>
-                      <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
-                      <p class="mb-0"><strong>Tue</strong></p>
-                    </div>
-                    <div class="flex-column">
-                      <p class="small"><strong>16°C</strong></p>
-                      <i class="fas fa-cloud fa-2x mb-3" style="color: #ddd;"></i>
-                      <p class="mb-0"><strong>Wed</strong></p>
-                    </div>
-                    <div class="flex-column">
-                      <p class="small"><strong>17°C</strong></p>
-                      <i class="fas fa-cloud fa-2x mb-3" style="color: #ddd;"></i>
-                      <p class="mb-0"><strong>Thu</strong></p>
-                    </div>
-                    <div class="flex-column">
-                      <p class="small"><strong>18°C</strong></p>
-                      <i class="fas fa-cloud-showers-heavy fa-2x mb-3" style="color: #ddd;"></i>
-                      <p class="mb-0"><strong>Fri</strong></p>
-                    </div>
-                  </div>
-              </div>
+                </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
             </button>
-          </div>
+        </div>
     </section>
 
-    
+
 
 
     <section class="container-fluid">

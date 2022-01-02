@@ -9,6 +9,8 @@ block content
         span.slider.round
       span.fw-bold.ms-2  Fahrenheit
   section.container.gradient-custom.mt-5.py-5
+    h4.text-white.text-center.fst-italic.mb-5 
+      strong Weather Forecast of #{today}
     #carouselExampleIndicators.carousel.slide(data-bs-ride='carousel')
       .carousel-indicators
         button.active(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
@@ -235,6 +237,49 @@ block content
       button.carousel-control-next(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide='next')
         span.carousel-control-next-icon(aria-hidden='true')
         span.visually-hidden Next
+  section.container.gradient-custom.mt-5.py-5
+    h4.text-white.text-center.mt-3.mb-3 
+        strong Analytical data of previous days including #{today}
+    .container.d-flex.justify-content-around.align-items-center.mt-5.mb-4.pb-2
+      div
+        .flex-row
+          span.text-white.fst-italic.celcius
+            i.fas.fa-temperature-high.mb-3.me-2(style='color: #ddd;')
+            strong Highest Temperature : #{highestTempCelcius}&deg;C
+        .flex-row 
+          span.text-white.fst-italic.fahrenheit.d-none
+            i.fas.fa-temperature-high.mb-3.me-2(style='color: #ddd;')
+            strong Highest Temperature : #{highestTempFahrenheit}&#x2109;
+        .flex-row 
+          span.text-white.fst-italic.celcius
+            i.fas.fa-temperature-low.mb-3.me-2(style='color: #ddd;')
+            strong Lowest Temperature : #{lowestTempCelcius}&deg;C
+        .flex-row 
+          span.text-white.fst-italic.fahrenheit.d-none
+            i.fas.fa-temperature-low.mb-3.me-2(style='color: #ddd;')
+            strong Lowest Temperature : #{lowestTempFahrenheit}&#x2109;
+        //- h5.display-2.text-white.fahrenheit.d-none
+        //-   strong #{forecastDay.avgtemp_f}&#x2109;
+        //- p.text-white.mb-0 #{locations.name}, #{locations.country}
+        //- p.text-white.mb-0 #{today}
+        //- p.text-white.mb-0 #{forecastDay.condition.text}
+      div
+        .flex-row 
+          span.text-white.fst-italic.celcius
+            i.fas.fa-temperature-high.mb-3.me-2(style='color: #ddd;')
+            strong Max Avg Temperature : #{maxAvgTempCelcius}&deg;C
+        .flex-row 
+          span.text-white.fst-italic.fahrenheit.d-none
+            i.fas.fa-temperature-high.mb-3.me-2(style='color: #ddd;')
+            strong Max Avg Temperature : #{maxAvgTempFahrenheit}&#x2109;
+        .flex-row 
+          span.text-white.fst-italic.celcius
+            i.fas.fa-temperature-low.mb-3.me-2(style='color: #ddd;')
+            strong Min Avg Temperature : #{minAvgTempCelcius}&deg;C
+        .flex-row 
+          span.text-white.fst-italic.fahrenheit.d-none
+            i.fas.fa-temperature-low.mb-3.me-2(style='color: #ddd;')
+            strong Min Avg Temperature : #{minAvgTempFahrenheit}&#x2109;
   script. 
     $(document).ready(function () {
     $('[name="graduate"]').change(function () {
