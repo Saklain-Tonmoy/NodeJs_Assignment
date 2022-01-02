@@ -38,7 +38,7 @@ console.log(sixDaysAgo);
 // };
 
 router.get("/", function (req, res) {
-  res.render("index", { title: "HOME Page" });
+  res.render("index", { title: "Welcome to Express Weather App.", today });
 });
 
 /* GET weather data from api */
