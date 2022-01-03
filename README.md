@@ -22,34 +22,45 @@ It's an ExpressJS weather application by which you can find the weather informat
 # Project Setup
 ## Step 1
 At first, download NodeJS stable version from the link below.
-[a link] (https://nodejs.org/en/download/)
+https://nodejs.org/en/download/
 ## Step 2
 Please go to the folder where you want to install the application and open the Termial/CMD
 ## Step 3
 Type the following command and press enter
+
 ```
 git clone https://github.com/Saklain-Tonmoy/NodeJs_Assignment.git
 ```
+
 ## Step 4
 Please go inside the cloned folder and open the terminal. Then type the following command and press enter
+
 ```
 npm install --save
 ```
+
 ## Step 5
 And finally, run the application using the following command
+
 ```
 npm start
 ```
+
 ## Step 6 
-To use the application, open your browser and type the link below
+Open your browser and type the link below
+
+```
 http://localhost:3000/
+```
+
 ## Step 7
 In order to see the weather forecast type the follwing URL in your browser. Use the first one for consistent result.
+
 ```
 http://localhost:3000/all/cityName
 ```
 
-OR
+or
 
 ```
 http://localhost:3000/all/countryName/cityName
