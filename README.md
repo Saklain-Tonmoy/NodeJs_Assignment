@@ -21,8 +21,8 @@ It's an ExpressJS weather application by which you can find the weather informat
 
 # Project Setup
 ## Step 1
-At first, download and NodeJS stable version from the link below.
-https://nodejs.org/en/download/
+At first, download NodeJS stable version from the link below.
+[a link] (https://nodejs.org/en/download/)
 ## Step 2
 Please go to the folder where you want to install the application and open the Termial/CMD
 ## Step 3
