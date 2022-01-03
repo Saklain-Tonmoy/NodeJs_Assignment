@@ -2,11 +2,13 @@ extends layout
 
 block content
   section.container.gradient-custom.mt-5.py-5
-    .container.row.mb-4.pb-2
+    .container.row.mb-4.py-5
       div.col-md-4.col-sm-4
         img.float-end(src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu3.webp' width='150px')
       div.col-md-8.col-sm-8
-        h4.text-white.fst-italic
+        h2.text-white.fst-italic
           strong #{title}
-        span.text-white.fst-italic
+        span(style="font-size: 1.5em;").text-white.fst-italic
           strong #{today}
+        h6.text-white.fst-italic.mt-2
+          strong By Saklain Tonmoy

@@ -11,23 +11,29 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-// requiring express-rate-limit. this must be below the ### var app = express();
-const rateLimit = require('express-rate-limit');
+// // requiring express-rate-limit. this must be below the ### var app = express();
+// const rateLimit = require('express-rate-limit');
 
-// this function is handling what will happen when the limit is reached
-const limitReached = (req, res) => {
-  res.render('forbidden', { message: "Too many requests. You can request once in 10 seconds." });
-};
+// // this function is handling what will happen when the limit is reached
+// const limitReached = (req, res) => {
+//   res.render('forbidden', { message: "Too many requests. You can request once in 10 seconds." });
+// };
 
-// initializing express-rate-limit
-const apiRequestLimiter = rateLimit({
-  windowMs: 10 * 1000, // 10 seconds
-  max: 2, // limit each IP to 1 requests per windowMs
-  handler: limitReached,
-});
+// // initializing express-rate-limit
+// const apiRequestLimiter = rateLimit({
+//   windowMs: 10 * 1000, // 10 seconds
+//   max: 2, // limit each IP to 1 requests per windowMs
+//   handler: limitReached,
+// });
+
+// if we use apiRequestLimiter here, then it will be applicable for all the routes under this route group
+// app.use('/', apiRequestLimiter, indexRouter);
+// app.use('/users', usersRouter);
+
+
 
 // difining the route group
-app.use('/', apiRequestLimiter, indexRouter);
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
