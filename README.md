@@ -25,7 +25,7 @@ At first, download and NodeJS stable version from the link below.
 https://nodejs.org/en/download/
 ### Step 2
 Please go to the folder where you want to install the application and open the Termial/CMD
-#### Step 3
+## Step 3
 Type the following command and press enter
 ```
 git clone https://github.com/Saklain-Tonmoy/NodeJs_Assignment.git
@@ -44,12 +44,14 @@ npm start
 To use the application, open your browser and type the link below
 http://localhost:3000/
 ### Step 7
-In order to see the weather forecast type the follwing URL in your browser
+In order to see the weather forecast type the follwing URL in your browser. Use the first one for consistent result.
 ```
 http://localhost:3000/all/cityName
+```
 
 OR
 
+```
 http://localhost:3000/all/countryName/cityName
 ```
-Use the first one for consistent result.
+
